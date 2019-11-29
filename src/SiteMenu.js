@@ -8,12 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
 const sections = [
-    { name: 'Home', page: "/" },
-    //{ name: 'Consultancy', page: "consultancy" },
-    { name: 'Zaalverhuur', page: "/zaalverhuur" },
-    //    { name: 'Producten', page: "producten" },
-    { name: 'Over Ons', page: "/overons" },
-    { name: 'Contact', page: "/contact" }
+    // { name: 'Home', page: "/" },
+    // { name: 'Zaalverhuur', page: "/zaalverhuur" },
+    // { name: 'Over Ons', page: "/overons" },
+    // { name: 'Contact', page: "/contact" }
 ];
 
 

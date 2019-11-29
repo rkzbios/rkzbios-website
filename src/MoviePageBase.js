@@ -90,7 +90,9 @@ const useStyles = makeStyles(theme => ({
     },
 
     movieContent: {
-        margin: 16
+        marginLeft: 16,
+        marginRight: 16,
+        marginBottom: 16
     },
 
     movieType: {
