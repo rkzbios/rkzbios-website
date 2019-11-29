@@ -43,6 +43,6 @@ class RKZBiosWebsiteApp extends App {
   }
 }
 
-const RKZBIOS_TRACKING_ID = '';
+const RKZBIOS_TRACKING_ID = 'UA-153595055-1';
 
 export default withGA(RKZBIOS_TRACKING_ID, Router)(RKZBiosWebsiteApp);

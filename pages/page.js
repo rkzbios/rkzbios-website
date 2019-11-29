@@ -144,7 +144,6 @@ Page.getInitialProps = async function () {
     await movieApi.getMovies({})
   ]);
 
-  console.log("data ", currentMovie, " all ", activeMovies)
 
   return {
     currentMovie,

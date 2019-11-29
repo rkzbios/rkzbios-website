@@ -22,7 +22,6 @@ const theme = createMuiTheme({
   typography: {
     fontSize: 16,
     fontFamily: [
-      '"Catamaran"',
       '"Lato"',
       'sans-serif',
       '-apple-system',
@@ -36,10 +35,14 @@ const theme = createMuiTheme({
       '"Segoe UI Symbol"',
     ].join(','),
 
+    a: {
+      color: "white",
+    },
+
     h1: {
-      fontSize: 50,
-      fontWeight: 200,
-      fontFamily: ['Catamaran', 'Helvetica', 'Arial', 'sans-serif'].join(','),
+      fontSize: 40,
+      fontWeight: 700,
+      fontFamily: ['Lato', 'Helvetica', 'Arial', 'sans-serif'].join(','),
       lineHeight: 1.0,
       letterSpacing: 1.0
     },

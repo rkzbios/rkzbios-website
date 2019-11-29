@@ -4,11 +4,12 @@ import { ServerStyleSheets } from '@material-ui/styles';
 import flush from 'styled-jsx/server';
 import theme from '../src/theme';
 
-class KnowlogyDocument extends Document {
+class RKZBiosDocument extends Document {
   render() {
 
     //console.log(this.props.lang);
 
+    // <meta name="google-site-verification" content="" />
     return (
       <html lang={this.props.lang} dir="ltr">
         <Head>
@@ -21,12 +22,10 @@ class KnowlogyDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="icon" type="image/png" href="/static/img/favicon.png" />
-          <meta name="google-site-verification" content="5RaCJ-pbmHdwkwnW5Lpwi073fNHEWEr0DrvcqGqO6zc" />
+         
  
           <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" />
- 
+          <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet"/>
 
 
     <link
@@ -36,7 +35,7 @@ class KnowlogyDocument extends Document {
       
         <script src="/static/js/delayed-scroll-restoration-polyfill@0.1.1.js"></script>
 
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChF1LEgwxPNUgxiNT3sbMuY_yZCc7WiuM&libraries=places"></script>
+          
         </Head>
         <body>
           <Main />
@@ -47,7 +46,7 @@ class KnowlogyDocument extends Document {
   }
 }
 
-KnowlogyDocument.getInitialProps = async ctx => {
+RKZBiosDocument.getInitialProps = async ctx => {
   // Resolution order
   //
   // On the server:
@@ -105,4 +104,4 @@ KnowlogyDocument.getInitialProps = async ctx => {
   };
 };
 
-export default KnowlogyDocument;
+export default RKZBiosDocument;

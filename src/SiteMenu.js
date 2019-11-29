@@ -41,7 +41,10 @@ const useStyles = makeStyles(theme => ({
         flexShrink: 0,
         color: "red"
     },
-
+    clarification: {
+        fontFamily: "Oswald,sans-serif",
+        fontSize: "0.8em",
+    }
 }));
 
 
@@ -54,10 +57,12 @@ const SiteMenu = (props) => {
     return <Box className={classes.root} >
         <Container component="nav" maxWidth="lg">
             <Grid container>
-                <Grid item md={4}>
-                    <img src="/static/images/rkzbios-logo-300.png" alt="RKZ Bios" title="RKZ Bios" />
+                <Grid item md={3} xs={12}>
+                    <Link as={`/`} href={`/index`}>
+                        <img src="/static/images/rkzbios-logo-300.png" alt="RKZ Bios" title="RKZ Bios" />
+                    </Link>
                 </Grid>
-                <Grid item md={4}>
+                <Grid item md={4} xs={12}>
 
                     <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
                         {sections.map(section => (
@@ -74,6 +79,10 @@ const SiteMenu = (props) => {
                             </Link>
                         ))}
                     </Toolbar>
+                </Grid>
+                <Grid className={classes.clarification} item md={5} xs={12}>
+                    <div>entree €7,- | 10-rittenkaart €50,- | studenten/stadjerspas €5,-</div>
+                    <div>de kassa opent 30 minuten voor aanvang | pinnen en/of reserveren is niet mogelijk</div>
                 </Grid>
             </Grid>
         </Container>

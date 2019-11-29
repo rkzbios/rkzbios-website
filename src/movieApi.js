@@ -69,7 +69,7 @@ import fetch from 'isomorphic-unfetch';
 
     getMovie = async function(id) {
       let resourceUrl = `${MOVIE_API_BASE_URL}moviePages/${id}/`;
-      console.log("Fetching ", resourceUrl);
+      //console.log("Fetching ", resourceUrl);
       const res = await fetch(resourceUrl);
       const data = await res.json();
       return data;
@@ -83,10 +83,10 @@ import fetch from 'isomorphic-unfetch';
     getMovies = async function({movieFilter = null}){
       let query = movieFilter ? movieFilter.getQuery(): new MovieFilter({}).getQuery();
 
-      console.log(query);
+      //console.log(query);
 
       let resourceUrl = `${MOVIE_API_BASE_URL}moviePages/${query}`;
-      console.log("Fetching ", resourceUrl);
+      //console.log("Fetching ", resourceUrl);
       const res = await fetch(resourceUrl);
       const data = await res.json();
       return data;

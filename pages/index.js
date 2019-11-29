@@ -34,5 +34,4 @@ HomePage.getInitialProps = async function () {
 
 }
 
-//export default withApollo( ProvideHomePage);
 export default HomePage;

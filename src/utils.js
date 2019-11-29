@@ -2,6 +2,7 @@
 import moment from 'moment';
 moment.locale('nl');
 
+
 export const getUrlEncodedStr = (value) => {
   return encodeURI(value.replace(/ /g,"-"));
 }
@@ -16,17 +17,32 @@ export const getMoviePosterUrl= (movie) => {
   return toFullMediaUrl(movie.moviePoster.meta.download_url);
 }
 
-
-export const getMovieDatesStr = (movieDates) => {
+export const getMovieDatesStrShort = (movieDates) => {
    
-  return movieDates.map( movieDate => {
-    return moment(movieDate.date).format('LLLL');
+  return movieDates.map( movieDateObject => {
+    const movieDate = moment(movieDateObject.date);
+    movieDate.utcOffset(0); // Strange, 2019-11-29T20:30:00Z  is translated to  21.30  movieDate.utcOffset() gives 60 (minutes) so I correct it
+    //console.log( "moment ", movieDate.utcOffset())
+
+    return movieDate.format('LL');
 
   });
 }
 
-export const toReleaseDateStr = (releaseDate) => {
-  return moment(releaseDate).format('YYYY');
+export const getMovieDatesStr = (movieDates) => {
+   
+  return movieDates.map( movieDateObject => {
+    const movieDate = moment(movieDateObject.date);
+    movieDate.utcOffset(0); // Strange, 2019-11-29T20:30:00Z  is translated to  21.30  movieDate.utcOffset() gives 60 (minutes) so I correct it
+    //console.log( "moment ", movieDate.utcOffset())
+
+    return movieDate.format('LLLL');
+
+  });
+}
+
+export const toReleaseDateStr = (releaseDateStr) => {
+  return moment(releaseDateStr).format('YYYY');
 }
 
 export const prependHttpToUrl = (href) => {
@@ -34,15 +50,6 @@ export const prependHttpToUrl = (href) => {
 }
 
 
-export const toJimboGoDomain = (value) => {
-  if(value){
-    const urlParts = getLocation(value);
-    const path = urlParts.pathname;
-
-    return `https://jimbogo.com${path}`;
-  }
-  return null;
-}
 
 
 export const toStringWithLineBreaks = (value) => {

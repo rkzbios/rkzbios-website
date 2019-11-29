@@ -30,15 +30,15 @@ const styles = {
 };
 
 const BodyBlockQuoute = (props) => {
-    return (<blockquote class="groucho">
+    return (<Box className={props.classes.quote}>
         {props.block.value.text}
-        <footer>{props.block.value.author}</footer>
-    </blockquote>);
+        <footer className={props.classes.quoteFrom}>{props.block.value.author}</footer>
+    </Box>);
 }
 
 const BodyParagraph = (props) => {
     return (
-        <p>{props.block.value}</p>
+        <p className={props.classes.bodyParagraph} >{props.block.value}</p>
     )
 }
 
@@ -72,21 +72,81 @@ const useStyles = makeStyles(theme => ({
         width: "100%"
     },
 
+    quote: {
+        fontStyle: "italic",
+        marginTop: 16,
+    },
+    quoteFrom: {
+        fontStyle: "normal",
+    },
+
+    bodyParagraph: {
+        color: "lightgrey",
+    },
+
     movieContainer: {
         borderRadius: 3,
         background: 'rgba(0, 0, 0, 0.85)'
     },
 
     movieContent: {
-        marginLeft: 16,
-        marginRight: 16
+        margin: 16
+    },
+
+    movieType: {
+        fontFamily: "Oswald,sans-serif",
+        color: "#00FC87",
+        fontSize: "1.3em",
+        textTransform: "capitalize",
+        marginTop: 16
+    },
+    movieDirectorCountry: {
+        fontFamily: "Oswald,sans-serif",
+        fontSize: "1.1em",
+        textTransform: "capitalize",
+        marginTop: 0
     },
 
     movieList: {
         marginTop: 40
+    },
+    externalLinks: {
+        marginTop: 16
+    },
+    externalLink: {
+        color: "white",
+    },
+
+    labelBox: {
+        marginTop: 16
+    },
+
+    labelName: {
+        fontFamily: "Oswald,sans-serif",
+        fontSize: "1.0em",
+
+    },
+    labelValue: {
+        fontFamily: "Oswald,sans-serif",
+        color: "#00FC87",
+        fontSize: "1.3em",
+
+    },
+    movieDates: {
+        fontFamily: "Oswald,sans-serif",
+        color: "#00FC87",
+        fontSize: "1.0em",
+    },
+    movieCard: {
+        marginBottom: 16,
+        backgroundColor: 'black'
+    },
+    movieCardDates: {
+        margin: 16,
+        marginBottom: 32, //HACK
+        fontFamily: "Oswald,sans-serif",
+        fontSize: "1.0em",
     }
-
-
 }));
 
 
@@ -106,7 +166,7 @@ const SimpleDialog = (props) => {
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Trailer</DialogTitle>
-            
+
         </Dialog>
     );
 }
@@ -114,7 +174,6 @@ const SimpleDialog = (props) => {
 
 
 const PosterImage = (props) => {
-
     const classes = useStyles();
     return (
         <img className={classes.posterImage} src={props.src}></img>
@@ -128,44 +187,75 @@ const MovieContent = (props) => {
     const datesStrings = getMovieDatesStr(movie.movieDates)
 
     const externalLinks = movie.externalLinks ? movie.externalLinks.map(externalLink => {
-        return <div><a target="_blank" href={externalLink.linkExternal}>Meer informatie op {externalLink.typeLink}</a> </div>
+        return <Box className={props.classes.externalLinks}>
+            <a className={props.classes.externalLink} target="_blank" href={externalLink.linkExternal}>Meer informatie op {externalLink.typeLink}</a>
+        </Box>
     }) : null;
 
     return (
         <Box className={props.classes.movieContent}>
             <H1>{movie.title}</H1>
+            <Box className={props.classes.movieDates}>
+                {datesStrings.map(dateStr => <Box>{dateStr}</Box>)}
+            </Box>
             <MovieBody classes={props.classes} body={movie.body} />
-            {datesStrings.map(dateStr => <div>{dateStr}</div>)}
-            <div>{movie.director} {movie.country}</div>
             {movie.premiere ? <div>Premiere in Groningen</div> : null}
-            {movie.movieType ? <div>{movie.movieType}</div> : null}
+            {movie.movieType ? <Box className={props.classes.movieType}>{movie.movieType}</Box> : null}
+            <Box className={props.classes.movieDirectorCountry}>{movie.director} {movie.country}</Box>
+
+
+            <Grid container className={props.classes.labelBox}  >
+                <Grid item xs={6}>
+                    <Box className={props.classes.labelName}>Duur</Box>
+                    {movie.lengthInMinutes ? <Box className={props.classes.labelValue}>{movie.lengthInMinutes} minuten</Box> : null}
+                </Grid>
+                <Grid item xs={6}>
+                    <Box className={props.classes.labelName}>Release</Box>
+                    {movie.releaseDate ? <Box className={props.classes.labelValue}>{toReleaseDateStr(movie.releaseDate)}</Box> : null}
+                </Grid>
+            </Grid>
+
             {movie.minimumAge ? <div>Minimale leeftijd {movie.minimumAge}</div> : null}
-            <div>
-                {movie.spokenLanguage ? <span>{movie.spokenLanguage}</span> : null}  {movie.subtitleLanguage ? <span>{movie.subtitleLanguage}</span> : null}
-            </div>
-            {movie.lengthInMinutes ? <div>Duur {movie.lengthInMinutes} minuten</div> : null}
-            {externalLinks}
-            {movie.releaseDate ? <div>{toReleaseDateStr(movie.releaseDate)}</div> : null}
-            <Button variant="outlined" color="primary" onClick={props.handleClickOpen}>
-                        Open trailer
-            </Button>
+            <Grid container className={props.classes.labelBox}  >
+                <Grid item xs={6}>
+                    <Box className={props.classes.labelName}>Taal</Box>
+                    <Box className={props.classes.labelValue}>
+                    {movie.spokenLanguage ? <span>{movie.spokenLanguage}</span> : null}
+                    </Box>
+                </Grid>
+                {movie.subtitleLanguage ?
+                <Grid item xs={6}>
+                    <Box className={props.classes.labelName}>Ondertiteling</Box>
+                    <Box className={props.classes.labelValue}>
+                        {movie.subtitleLanguage}
+                    </Box>
+                </Grid>
+                :null}
+
+            </Grid>
+            
+            <Box className={props.classes.labelBox}>
+                {externalLinks}
+            </Box>
+            <Box className={props.classes.labelBox}>
+                {/* <Button variant="outlined" color="primary" onClick={props.handleClickOpen}>
+                    Open trailer
+                </Button> */}
+            </Box>
         </Box>
     );
 }
 
 
-
 const MoviePageBase = (props) => {
-    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
 
-    //const MovieSelectorNoSSR = dynamic(() => import('../src/MovieSelector'), { ssr: false });
+    const classes = useStyles();
 
     const movie = props.currentMovie;
     const posterUrl = getMoviePosterUrl(props.currentMovie);
     const backgroundImageUrl = toFullMediaUrl(props.currentMovie.movieBackDrop.meta.download_url);
 
-
-    const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -173,49 +263,34 @@ const MoviePageBase = (props) => {
 
     const handleClose = value => {
         setOpen(false);
-        
+
     };
 
     return (
-
         <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle="Home">
-
-            <SimpleDialog  open={open} onClose={handleClose} />
-
+            <SimpleDialog open={open} onClose={handleClose} />
             <Container maxWidth="lg">
-                <Grid container className={classes.movieContainer}>
+                <Grid container spacing={4}>
+                    <Grid item md={10} xs={12} container className={classes.movieContainer}>
 
-                <Grid item xs={12} md={6}>
-                    <motion.div
-
-                        animate={{ scale: [0.9, 1] }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <PosterImage src={posterUrl} />
-                    </motion.div>
+                        <Grid item xs={12} md={6}>
+                            <motion.div
+                                animate={{ scale: [0.9, 1] }}
+                                transition={{ duration: 0.5 }}>
+                                <PosterImage src={posterUrl} />
+                            </motion.div>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <MovieContent classes={classes} movie={movie} handleClickOpen={handleClickOpen} />
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                        <MovieList classes={classes} movies={props.activeMovies.items} />
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                    <MovieContent classes={classes} movie={movie} handleClickOpen={handleClickOpen} />
-                </Grid>
-                <Grid item xs={12} md={12} style={{marginLeft: 16}}>
-                    <div>entree €7,- | 10-rittenkaart €50,- | studenten/stadjerspas €5,-</div>
-                    <div>de kassa opent 30 minuten voor aanvang | pinnen en/of reserveren is niet mogelijk | </div>
-                </Grid>
-                <Grid item xs={12} md={12} style={{marginLeft: 16}}>
-                    <h2>Agenda</h2>
-                </Grid>
-                <MovieList classes={classes} movies={props.activeMovies.items} />
-            </Grid>
-               
             </Container>
-        <Container maxWidth="lg">
-
-        </Container>
-
-
         </BasePageLayout >
     )
-
 }
 
 export default MoviePageBase;
