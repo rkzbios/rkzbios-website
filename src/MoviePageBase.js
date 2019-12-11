@@ -6,6 +6,9 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import Chip from '@material-ui/core/Chip';
+import FaceIcon from '@material-ui/icons/Face';
+
 import Button from '@material-ui/core/Button';
 
 import BasePageLayout from "../src/BasePageLayout";
@@ -148,7 +151,38 @@ const useStyles = makeStyles(theme => ({
         marginBottom: 32, //HACK
         fontFamily: "Oswald,sans-serif",
         fontSize: "1.0em",
+    },
+    doubleBill: {
+        marginBottom: 16,
+        marginTop: 16
+    },
+    movieCardImage:{
+        width: "100%",
+        
+    },
+    movieCardLink: {
+        
     }
+    /*
+    movieCardImage:{
+        width: "100%",
+        maxHeight: "100%",
+        position: "absolute",
+        display: "block",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        margin: "auto"
+    },
+    movieCardLink: {
+        display: "block",
+        width: "100%",
+        position: "relative",
+        height: 0,
+        padding: "180% 0 0 0",
+        overflow: "hidden"
+    }*/
 }));
 
 
@@ -188,6 +222,10 @@ const MovieContent = (props) => {
     const movie = props.movie;
     const datesStrings = getMovieDatesStr(movie.movieDates)
 
+    const isDoubleBill = movie.doubleBillMovie ? true: false;
+    const doubleBillTitle = movie.doubleBillMovie ? "Double Feature, samen met " + movie.doubleBillMovie.title: null;
+    
+
     const externalLinks = movie.externalLinks ? movie.externalLinks.map(externalLink => {
         return <Box className={props.classes.externalLinks}>
             <a className={props.classes.externalLink} target="_blank" href={externalLink.linkExternal}>Meer informatie op {externalLink.typeLink}</a>
@@ -197,9 +235,14 @@ const MovieContent = (props) => {
     return (
         <Box className={props.classes.movieContent}>
             <H1>{movie.title}</H1>
+            {isDoubleBill ? <Box className={props.classes.doubleBill}>
+                <Chip color="secondary" label={doubleBillTitle} icon={<FaceIcon />} />
+
+            </Box>: null}
             <Box className={props.classes.movieDates}>
                 {datesStrings.map(dateStr => <Box>{dateStr}</Box>)}
             </Box>
+
             <MovieBody classes={props.classes} body={movie.body} />
             {movie.premiere ? <div>Premiere in Groningen</div> : null}
             {movie.movieType ? <Box className={props.classes.movieType}>{movie.movieType}</Box> : null}
@@ -269,7 +312,7 @@ const MoviePageBase = (props) => {
     };
 
     return (
-        <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle="Home">
+        <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle={movie.title}>
             <SimpleDialog open={open} onClose={handleClose} />
             <Container maxWidth="lg">
                 <Grid container spacing={4}>

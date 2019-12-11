@@ -33,7 +33,7 @@ import fetch from 'isomorphic-unfetch';
         let querymap = {};
         //querymap['start'] = this.start;
         //querymap['count'] = this.count;
-        querymap['fields'] = 'director,country,moviePoster,movieDates,externalLinks,movieBackDrop,premiere,movieType,minimumAge,spokenLanguage,subtitleLanguage,lengthInMinutes'
+        querymap['fields'] = 'director,country,moviePoster,movieDates,externalLinks,movieBackDrop,premiere,movieType,minimumAge,spokenLanguage,subtitleLanguage,lengthInMinutes,doubleBillMovie(moviePoster)'
      
         if (this.currentActive){
           querymap['currentActive'] = this.currentActive;
@@ -86,7 +86,7 @@ import fetch from 'isomorphic-unfetch';
       //console.log(query);
 
       let resourceUrl = `${MOVIE_API_BASE_URL}moviePages/${query}`;
-      //console.log("Fetching ", resourceUrl);
+      console.log("Fetching ", resourceUrl);
       const res = await fetch(resourceUrl);
       const data = await res.json();
       return data;

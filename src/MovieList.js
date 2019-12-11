@@ -20,8 +20,8 @@ const MovieCard = (props) => {
     const datesStrings = getMovieDatesStrShort(movie.movieDates)
 
     return <Box className={props.classes.movieCard}>
-        <Link as={`/movie/${movieNameEncoded}/${movie.id}`} href={`/movie?id=${movie.id}&name=${movieNameEncoded}`}>
-            <img style={{ width: "100%" }} src={moviePosterUrl} />
+        <Link className={props.classes.movieCardLink} as={`/movie/${movieNameEncoded}/${movie.id}`} href={`/movie?id=${movie.id}&name=${movieNameEncoded}`}>
+            <img className={props.classes.movieCardImage}  src={moviePosterUrl} />
             <Box className={props.classes.movieCardDates}>
                 {datesStrings.map(dateStr => <div>{dateStr}</div>)}
             </Box>
