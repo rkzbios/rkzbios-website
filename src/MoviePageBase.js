@@ -25,12 +25,7 @@ import { toFullMediaUrl, getMoviePosterUrl } from '../src/utils';
 
 import { getMovieDatesStr, toReleaseDateStr } from "./utils";
 
-const styles = {
-    background: "blue",
-    borderRadius: 30,
 
-    margin: "auto"
-};
 
 const BodyBlockQuoute = (props) => {
     return (<Box className={props.classes.quote}>
@@ -53,10 +48,10 @@ const typeToComponentMap = {
 
 const MovieBody = (props) => {
 
-    return props.body.map(element => {
+    return props.body.map((element, i) => {
         const Component = typeToComponentMap[element.type];
         if (Component) {
-            return (<Component classes={props.classes} block={element} />);
+            return (<Component key={i} classes={props.classes} block={element} />);
         } else {
             return null;
         }
@@ -142,49 +137,11 @@ const useStyles = makeStyles(theme => ({
         color: "#00FC87",
         fontSize: "1.0em",
     },
-    movieCard: {
-        marginBottom: 16,
-        backgroundColor: 'black'
-    },
-    movieCardDates: {
-        margin: 16,
-        marginBottom: 32, //HACK
-        fontFamily: "Oswald,sans-serif",
-        fontSize: "1.0em",
-    },
     doubleBill: {
         marginBottom: 16,
         marginTop: 16
     },
-    movieCardImage:{
-        width: "100%",
-        
-    },
-    movieCardLink: {
-        
-    }
-    /*
-    movieCardImage:{
-        width: "100%",
-        maxHeight: "100%",
-        position: "absolute",
-        display: "block",
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        margin: "auto"
-    },
-    movieCardLink: {
-        display: "block",
-        width: "100%",
-        position: "relative",
-        height: 0,
-        padding: "180% 0 0 0",
-        overflow: "hidden"
-    }*/
 }));
-
 
 
 const SimpleDialog = (props) => {
@@ -202,11 +159,9 @@ const SimpleDialog = (props) => {
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Trailer</DialogTitle>
-
         </Dialog>
     );
 }
-
 
 
 const PosterImage = (props) => {
@@ -226,8 +181,8 @@ const MovieContent = (props) => {
     const doubleBillTitle = movie.doubleBillMovie ? "Double Feature, samen met " + movie.doubleBillMovie.title: null;
     
 
-    const externalLinks = movie.externalLinks ? movie.externalLinks.map(externalLink => {
-        return <Box className={props.classes.externalLinks}>
+    const externalLinks = movie.externalLinks ? movie.externalLinks.map( (externalLink, i) => {
+        return <Box key={i} className={props.classes.externalLinks}>
             <a className={props.classes.externalLink} target="_blank" href={externalLink.linkExternal}>Meer informatie op {externalLink.typeLink}</a>
         </Box>
     }) : null;
@@ -240,7 +195,7 @@ const MovieContent = (props) => {
 
             </Box>: null}
             <Box className={props.classes.movieDates}>
-                {datesStrings.map(dateStr => <Box>{dateStr}</Box>)}
+                {datesStrings.map( (dateStr, i) => <Box key={i}>{dateStr}</Box>)}
             </Box>
 
             <MovieBody classes={props.classes} body={movie.body} />
@@ -329,7 +284,7 @@ const MoviePageBase = (props) => {
                             <MovieContent classes={classes} movie={movie} handleClickOpen={handleClickOpen} />
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid container item xs={12} md={2}>
                         <MovieList classes={classes} movies={props.activeMovies.items} />
                     </Grid>
                 </Grid>
