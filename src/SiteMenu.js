@@ -42,6 +42,9 @@ const useStyles = makeStyles(theme => ({
     clarification: {
         fontFamily: "Oswald,sans-serif",
         fontSize: "0.8em",
+    },
+    link: {
+        color: "red"
     }
 }));
 
@@ -81,6 +84,7 @@ const SiteMenu = (props) => {
                 <Grid className={classes.clarification} item md={5} xs={12}>
                     <div>entree €7,- | 10-rittenkaart €50,- | studenten/stadjerspas €5,-</div>
                     <div>de kassa opent 30 minuten voor aanvang | pinnen en/of reserveren is niet mogelijk</div>
+                    <div>email: <a className={classes.link} href="mailto:info@rkzbios.nl">info@rkzbios.nl</a> </div>
                 </Grid>
             </Grid>
         </Container>

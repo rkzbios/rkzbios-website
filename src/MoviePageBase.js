@@ -4,8 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
+
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 
@@ -13,6 +12,7 @@ import Button from '@material-ui/core/Button';
 
 import BasePageLayout from "../src/BasePageLayout";
 
+import MovieTrailerDialog from "./MovieTrailerDialog";
 
 import { H1, Body1 } from "./Typo";
 import { Box } from '@material-ui/core';
@@ -141,27 +141,16 @@ const useStyles = makeStyles(theme => ({
         marginBottom: 16,
         marginTop: 16
     },
+    classification: {
+        backgroundColor: "white"
+    },
+    classificationImage: {
+        width: "1.5em",
+        height: "1.5em",
+    }
+
 }));
 
-
-const SimpleDialog = (props) => {
-    const classes = useStyles();
-    const { onClose, selectedValue, open } = props;
-
-    const handleClose = () => {
-        onClose(selectedValue);
-    };
-
-    const handleListItemClick = value => {
-        onClose(value);
-    };
-
-    return (
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-            <DialogTitle id="simple-dialog-title">Trailer</DialogTitle>
-        </Dialog>
-    );
-}
 
 
 const PosterImage = (props) => {
@@ -180,6 +169,15 @@ const MovieContent = (props) => {
     const isDoubleBill = movie.doubleBillMovie ? true: false;
     const doubleBillTitle = movie.doubleBillMovie ? "Double Feature, samen met " + movie.doubleBillMovie.title: null;
     
+
+    const classifications = movie.classifications ? movie.classifications.map( (classification, i) => {
+
+        const classificationImageUrl =  "/static/images/" + classification.icon;
+        return <Box key={i}>
+            <img className={props.classes.classificationImage} src={classificationImageUrl} />
+        </Box>
+    }) : null;
+
 
     const externalLinks = movie.externalLinks ? movie.externalLinks.map( (externalLink, i) => {
         return <Box key={i} className={props.classes.externalLinks}>
@@ -201,7 +199,17 @@ const MovieContent = (props) => {
             <MovieBody classes={props.classes} body={movie.body} />
             {movie.premiere ? <div>Premiere in Groningen</div> : null}
             {movie.movieType ? <Box className={props.classes.movieType}>{movie.movieType}</Box> : null}
-            <Box className={props.classes.movieDirectorCountry}>{movie.director} {movie.country}</Box>
+            
+
+            <Grid container className={props.classes.labelBox}  >
+                <Grid item xs={6}>
+                    <Box className={props.classes.movieDirectorCountry}>{movie.director} {movie.country}</Box>
+                </Grid>
+                <Grid item xs={6}>
+                    {classifications}
+                </Grid>
+            </Grid>
+
 
 
             <Grid container className={props.classes.labelBox}  >
@@ -238,9 +246,9 @@ const MovieContent = (props) => {
                 {externalLinks}
             </Box>
             <Box className={props.classes.labelBox}>
-                {/* <Button variant="outlined" color="primary" onClick={props.handleClickOpen}>
+                <Button variant="outlined" color="primary" onClick={props.handleClickOpen}>
                     Open trailer
-                </Button> */}
+                </Button>
             </Box>
         </Box>
     );
@@ -255,20 +263,22 @@ const MoviePageBase = (props) => {
     const movie = props.currentMovie;
     const posterUrl = getMoviePosterUrl(props.currentMovie);
     const backgroundImageUrl = toFullMediaUrl(props.currentMovie.movieBackDrop.meta.download_url);
+    const trailer = movie.trailer ? movie.trailer: null; 
 
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = value => {
+    const handleClose = () => {
         setOpen(false);
-
     };
 
+
+    
     return (
         <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle={movie.title}>
-            <SimpleDialog open={open} onClose={handleClose} />
+            {trailer ? <MovieTrailerDialog url={trailer} open={open} onClose={handleClose} />: null}
             <Container maxWidth="lg">
                 <Grid container spacing={4}>
                     <Grid item md={10} xs={12} container className={classes.movieContainer}>
