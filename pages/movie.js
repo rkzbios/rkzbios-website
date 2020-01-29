@@ -17,14 +17,17 @@ MoviePage.getInitialProps = async function ({res, query: { id, name } }) {
   let [
     currentMovie,
     activeMovies,
+    mainMenuItems
   ] = await Promise.all([
     await movieApi.getMovie(id),
-    await movieApi.getMovies({})
+    await movieApi.getMovies({}),
+    await movieApi.getMainMenu(),
   ]);
   
   return {
     currentMovie,
-    activeMovies
+    activeMovies,
+    mainMenuItems
   }
 
 }

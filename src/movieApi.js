@@ -86,13 +86,26 @@ import fetch from 'isomorphic-unfetch';
       //console.log(query);
 
       let resourceUrl = `${MOVIE_API_BASE_URL}moviePages/${query}`;
-      console.log("Fetching ", resourceUrl);
       const res = await fetch(resourceUrl);
       const data = await res.json();
       return data;
     }
     
+    getMainMenu = async function(){
+      let menuResourceUrl = `${MOVIE_API_BASE_URL}pages/?child_of=2&show_in_menus=true`;
+      const res = await fetch(menuResourceUrl);
+      const data = await res.json();
+      return data.items.map(item => {
+         return {id: item.id, title: item.title, slug: item.meta.slug}
+      });
+    }
     
+    getPage = async function(id){
+      let pageResourceUrl = `${MOVIE_API_BASE_URL}pages/${id}/`;
+      const res = await fetch(pageResourceUrl);
+      const data = await res.json();
+      return data;
+    }
 };
   
   

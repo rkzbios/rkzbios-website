@@ -62,7 +62,9 @@ const MovieCard = (props) => {
     const datesStrings = getMovieDatesStrShort(movie.movieDates)
 
     return <Grid className={classes.movieCard} key={props.akey} item xs={6}  md={12} alignContent="stretch" >
-        <Link className={classes.movieCardLink} as={`/movie/${movieNameEncoded}/${movie.id}`} href={`/movie?id=${movie.id}&name=${movieNameEncoded}`}>
+        <Link className={classes.movieCardLink} 
+            as={`/movie/${movieNameEncoded}/${movie.id}`} 
+            href={`/movie?id=${movie.id}&name=${movieNameEncoded}`}>
             <ConstRatioImage ratio={1.5} src={moviePosterUrl} />
             <Box className={classes.movieCardDates}>
                 {datesStrings.map((dateStr, i) => <div key={i}>{dateStr}</div>)}

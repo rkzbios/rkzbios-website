@@ -20,16 +20,19 @@ HomePage.getInitialProps = async function () {
   let [
     currentMovie,
     activeMovies,
+    mainMenuItems
   ] = await Promise.all([
     await movieApi.getCurrentMovie(),
-    await movieApi.getMovies({})
+    await movieApi.getMovies({}),
+    await movieApi.getMainMenu()
   ]);
 
   //console.log("data ", currentMovie, " all ", activeMovies)
 
   return {
     currentMovie,
-    activeMovies
+    activeMovies,
+    mainMenuItems
   }
 
 }

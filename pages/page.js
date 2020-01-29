@@ -1,156 +1,120 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-
-import BasePageLayout from "../src/BasePageLayout";
-
-
-import { H1, Body1 } from "../src/Typo";
-import { Box } from '@material-ui/core';
-
 import { motion } from "framer-motion";
 
+
+import BasePageLayout from "../src/BasePageLayout";
+import MovieList from "../src/MovieList";
+import { H1, Body1 } from "../src/Typo";
+import { toFullMediaUrl, getMoviePosterUrl } from '../src/utils';
 import movieApi from '../src/movieApi';
-
-const styles = {
-  background: "blue",
-  borderRadius: 30,
-
-  margin: "auto"
-};
-
-const BodyBlockQuoute = (props) => {
-  return (<blockquote class="groucho">
-    {props.body.text}
-    <footer>{props.body.test}</footer>
-  </blockquote>);
-}
-
-const BodyParagraph = (props) => {
-  return (
-    <p>{props.block.value}</p>
-  )
-}
-
-
-const typeToComponentMap = {
-  paragraph: BodyParagraph
-}
-
-const MovieBody = (props) => {
-
-  return props.body.map(element => {
-    const Component = typeToComponentMap[element.type];
-    if (Component) {
-      return (<Component block={element} />);
-    } else {
-      return null;
-    }
-  })
-}
 
 
 
 const useStyles = makeStyles(theme => ({
-
   button: {
     marginTop: 40
   },
-
-  posterImage: {
+  image: {
     width: "100%"
   },
-
   movieContainer: {
     borderRadius: 3,
     background: 'rgba(0, 0, 0, 0.85)'
-  }
-
+  },
+  bodyParagraph: {
+    color: "lightgrey",
+  },
 }));
 
 
-
-
-const Content = (props) => {
-
-  const movie = props.movie;
-  const movieTitle = props.movie.title
-
-  return (
-    <Box>
-      <H1>{movie.title}</H1>
-     
-    </Box>
-  );
+const toStringWithLineBreaks = (value) => {
+  return value.split('\n').map((item, key) => {
+    return <React.Fragment key={key}>{item}<br /></React.Fragment>
+  })
 }
 
-const toFullMediaUrl= (url) => {
-  return `http://localhost:8000${url}`;
+const Heading = (props) => {
+  return (<H1>
+      {props.block.value}
+      </H1>);
+}
+
+const BodyParagraph = (props) => {
+  const value = toStringWithLineBreaks(props.block.value);
+  return (
+    <p className={props.classes.bodyParagraph} >{value}</p>
+  )
+}
+
+const Image = (props) => {
+  return <img className={props.classes.image}  src={toFullMediaUrl(props.block.value)} />
+}
+
+
+const typeToComponentMap = {
+  paragraph: BodyParagraph,
+  heading: Heading,
+  image: Image
+}
+
+const PageBody = (props) => {
+  return props.body.map((element, i) => {
+      const Component = typeToComponentMap[element.type];
+      if (Component) {
+          return (<Component key={i} classes={props.classes} block={element} />);
+      } else {
+          return null;
+      }
+  })
 }
 
 
 const Page = (props) => {
   const classes = useStyles();
-
-  //const MovieSelectorNoSSR = dynamic(() => import('../src/MovieSelector'), { ssr: false });
-
-  const backgroundImageUrl = null
+  const backgroundImageUrl = toFullMediaUrl(props.page.pageBackDrop.meta.download_url);
 
   return (
-
-    <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle="Home">
-
+    <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle={props.page.title} mainMenuItems={props.mainMenuItems} >
       <Container maxWidth="lg">
         <Grid container spacing={4} className={classes.movieContainer}>
-
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={10}>
             <motion.div
-
               animate={{ scale: [0.9, 1] }}
               transition={{ duration: 0.5 }}
             >
-             
+             <PageBody classes={classes} body={props.page.body} />
+
             </motion.div>
           </Grid>
-          <Grid item xs={12} md={6}>
-            
+          <Grid item xs={12} md={2}>
+            <MovieList classes={classes} movies={props.activeMovies.items} />
           </Grid>
-
         </Grid>
       </Container>
-      <Container maxWidth="lg">
-
-      </Container>
-
-
     </BasePageLayout>
   )
-
 }
 
 
-Page.getInitialProps = async function () {
-
-
+Page.getInitialProps = async function  ({res, query: { path, id } }) {
   let [
-    currentMovie,
+    page,
     activeMovies,
+    mainMenuItems
   ] = await Promise.all([
-    await movieApi.getCurrentMovie(),
-    await movieApi.getMovies({})
+    await movieApi.getPage(id),
+    await movieApi.getMovies({}),
+    await movieApi.getMainMenu()
   ]);
-
-
   return {
-    currentMovie,
-    activeMovies
+    page,
+    activeMovies,
+    mainMenuItems
   }
-
 }
 
-//export default withApollo( ProvideHomePage);
 export default Page;

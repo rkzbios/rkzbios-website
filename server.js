@@ -31,9 +31,9 @@ const cacheablePages = [
     toQuery: (req) => ({ id: req.params.id, name: req.params.name }),
   },
   {
-    path: '/:path',
+    path: '/page/:path/:id',
     pagePath: '/page',
-    toQuery: (req) => ({ path: req.params.path }),
+    toQuery: (req) => ({ path: req.params.path, id: req.params.id }),
   }
 
 ];

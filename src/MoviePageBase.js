@@ -257,14 +257,11 @@ const MovieContent = (props) => {
 
 const MoviePageBase = (props) => {
     const [open, setOpen] = React.useState(false);
-
     const classes = useStyles();
-
     const movie = props.currentMovie;
     const posterUrl = getMoviePosterUrl(props.currentMovie);
     const backgroundImageUrl = toFullMediaUrl(props.currentMovie.movieBackDrop.meta.download_url);
     const trailer = movie.trailer ? movie.trailer: null; 
-
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -273,11 +270,9 @@ const MoviePageBase = (props) => {
     const handleClose = () => {
         setOpen(false);
     };
-
-
     
     return (
-        <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle={movie.title}>
+        <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle={movie.title} mainMenuItems={props.mainMenuItems}>
             {trailer ? <MovieTrailerDialog url={trailer} open={open} onClose={handleClose} />: null}
             <Container maxWidth="lg">
                 <Grid container spacing={4}>

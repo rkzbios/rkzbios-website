@@ -7,23 +7,13 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
-const sections = [
-    // { name: 'Home', page: "/" },
-    // { name: 'Zaalverhuur', page: "/zaalverhuur" },
-    // { name: 'Over Ons', page: "/overons" },
-    // { name: 'Contact', page: "/contact" }
-];
-
-
 
 const useStyles = makeStyles(theme => ({
-
     root: {
         // backgroundColor: "#000",
         marginTop: 32,
         marginBottom: 32
     },
-
     toolbar: {
         borderBottom: `1px solid ${theme.palette.divider}`,
     },
@@ -31,30 +21,33 @@ const useStyles = makeStyles(theme => ({
         flex: 1,
     },
     toolbarSecondary: {
-        justifyContent: 'space-between',
         overflowX: 'auto',
     },
     toolbarLink: {
         padding: theme.spacing(1),
+        //paddingRight: theme.spacing(1),       
         flexShrink: 0,
-        color: "red"
+        color: "red",
+        '&:hover': {
+            background: 'red',
+            color: 'white',
+            textDecoration: 'none'
+        },
+        borderRadius: 4,
+        textDecoration: 'none'
     },
     clarification: {
         fontFamily: "Oswald,sans-serif",
         fontSize: "0.8em",
+        textAlign: "right"
     },
     link: {
         color: "red"
     }
 }));
 
-
-
-
 const SiteMenu = (props) => {
-
     const classes = useStyles();
-
     return <Box className={classes.root} >
         <Container component="nav" maxWidth="lg">
             <Grid container>
@@ -64,19 +57,18 @@ const SiteMenu = (props) => {
                     </Link>
                 </Grid>
                 <Grid item md={4} xs={12}>
-
                     <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-                        {sections.map(section => (
+                        {props.mainMenuItems.map(menuItem => (
                             <Link
                                 color="inherit"
                                 noWrap
-                                key={section.name}
+                                key={menuItem.slug}
                                 variant="body2"
-                                as={section.page}
-                                href={section.page}
+                                as={`/page/${menuItem.slug}/${menuItem.id}`} 
+                                href={`/page/${menuItem.slug}?id=${menuItem.id}`}
                                 className={classes.toolbarLink}
                             >
-                                {section.name}
+                                {menuItem.title}
                             </Link>
                         ))}
                     </Toolbar>

@@ -5,11 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Link from '@material-ui/core/Link';
-
 import Head from 'next/head';
-
 import SiteMenu from './SiteMenu';
-
 
 //    height: 100vh; // for full browser height and no gradient break
 
@@ -26,15 +23,13 @@ const useStyles = makeStyles(theme => ({
   main: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2),
-  
+ 
   },
   footer: {
     padding: theme.spacing(2),
     marginTop: 'auto'
   },
-
  }));
-
 
 
  function BuildWithLove() {
@@ -51,11 +46,9 @@ const useStyles = makeStyles(theme => ({
 }
 
 
-
 const BasePageLayout = (props) => {
 
   const classes = useStyles();
-
 
   let backGroundStyle = {
     background: 'black',
@@ -63,12 +56,7 @@ const BasePageLayout = (props) => {
     backgroundSize: 'cover', 
     height: '100%'
   }
-  if (true){
-    backGroundStyle.backgroundImage = 'url(' + props.backgroundImage + ')';
-  }
-
-
-
+  backGroundStyle.backgroundImage = 'url(' + props.backgroundImage + ')';
   return (
     <div style={backGroundStyle} >
     <div className={classes.root}>
@@ -76,7 +64,7 @@ const BasePageLayout = (props) => {
         <title>{props.pageTitle}</title>
         <meta name="og:title" value={props.pageTitle} />
       </Head>
-      <SiteMenu />
+      <SiteMenu mainMenuItems={props.mainMenuItems}/>
       {props.children ? props.children : null}
       <footer className={classes.footer}>
         <Container maxWidth="sm">
@@ -88,8 +76,4 @@ const BasePageLayout = (props) => {
   )
 }
 
-
 export default BasePageLayout;
-
-
-
