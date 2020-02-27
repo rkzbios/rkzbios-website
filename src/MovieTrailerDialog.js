@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import YoutubeEmbedVideo from 'youtube-embed-video';
+import YoutubeEmbedVideo from './YoutubeEmbedVideo';
 
 
 
@@ -18,6 +18,12 @@ import YoutubeEmbedVideo from 'youtube-embed-video';
 
 const useStyles = makeStyles(theme => ({
 
+  // videoResponsive : {
+  //   overflow: 'hidden',
+  //   padding-bottom:56.25%;
+  //   position:relative;
+  //   height:0;
+  // }
    
 }));
 
@@ -57,6 +63,9 @@ const parseYoutubeUrl = (url) => {
 }  
 
 const MovieTrailerDialog = (props) => {
+
+    const classes = useStyles()
+
     const { onClose, open } = props;
 
     const handleClose = () => {
@@ -70,11 +79,13 @@ const MovieTrailerDialog = (props) => {
 
 
     return (
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+        <Dialog  onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="customized-dialog-title" onClose={handleClose}>
             Trailer
             </DialogTitle>
-            <YoutubeEmbedVideo videoId={youtubeId} suggestions={false} />
+            <div className={classes.videoResponsive }>
+              <YoutubeEmbedVideo videoId={youtubeId} suggestions={false} />
+            </div>
         </Dialog>
     );
 }

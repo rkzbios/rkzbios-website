@@ -144,9 +144,28 @@ const useStyles = makeStyles(theme => ({
     classification: {
         backgroundColor: "white"
     },
+    classificationBox: {
+        display: "inline",
+        marginRight: 8
+    },
     classificationImage: {
         width: "1.5em",
         height: "1.5em",
+    },
+    playButton: {
+        position: 'absolute',
+        top: '50%',
+        right: '50%',
+        width: 90,
+        height: 90,
+        marginTop: -45,
+        marginRight: -45,
+        '&:hover': {
+            transform: 'scale(1.3)'
+        },
+    },
+    posterContainer: {
+        position: 'relative'
     }
 
 }));
@@ -154,10 +173,18 @@ const useStyles = makeStyles(theme => ({
 
 
 const PosterImage = (props) => {
+
+    
     const classes = useStyles();
-    return (
-        <img className={classes.posterImage} src={props.src}></img>
-    );
+    return <div className={classes.posterContainer}>
+        <img className={classes.posterImage} src={props.src}>
+        </img>
+        {props.showPlayButton ? <img 
+            className={classes.playButton} 
+            src="/static/images/play-white.png"
+            onClick={() => props.onPlayClick()}
+            ></img>: null}
+        </div>        
 }
 
 
@@ -173,7 +200,7 @@ const MovieContent = (props) => {
     const classifications = movie.classifications ? movie.classifications.map( (classification, i) => {
 
         const classificationImageUrl =  "/static/images/" + classification.icon;
-        return <Box key={i}>
+        return <Box className={props.classes.classificationBox} key={i}>
             <img className={props.classes.classificationImage} src={classificationImageUrl} />
         </Box>
     }) : null;
@@ -245,11 +272,7 @@ const MovieContent = (props) => {
             <Box className={props.classes.labelBox}>
                 {externalLinks}
             </Box>
-            <Box className={props.classes.labelBox}>
-                <Button variant="outlined" color="primary" onClick={props.handleClickOpen}>
-                    Open trailer
-                </Button>
-            </Box>
+  
         </Box>
     );
 }
@@ -271,6 +294,9 @@ const MoviePageBase = (props) => {
         setOpen(false);
     };
     
+
+    const showPlayButton = trailer ? true: false;
+
     return (
         <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle={movie.title} mainMenuItems={props.mainMenuItems}>
             {trailer ? <MovieTrailerDialog url={trailer} open={open} onClose={handleClose} />: null}
@@ -282,11 +308,11 @@ const MoviePageBase = (props) => {
                             <motion.div
                                 animate={{ scale: [0.9, 1] }}
                                 transition={{ duration: 0.5 }}>
-                                <PosterImage src={posterUrl} />
+                                <PosterImage src={posterUrl} showPlayButton={showPlayButton} onPlayClick={handleClickOpen} />
                             </motion.div>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <MovieContent classes={classes} movie={movie} handleClickOpen={handleClickOpen} />
+                            <MovieContent classes={classes} movie={movie}  />
                         </Grid>
                     </Grid>
                     <Grid container item xs={12} md={2}>
