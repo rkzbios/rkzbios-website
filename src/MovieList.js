@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Link from './Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography'
 import { getMoviePosterUrl, getUrlEncodedStr, getMovieDatesStrShort } from './utils';
 
 
@@ -14,10 +15,11 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: 'black'
     },
     movieCardDates: {
-        margin: 16,
+        marginTop: 8,
         marginBottom: 16,
         fontFamily: "Oswald,sans-serif",
         fontSize: "1.0em",
+        textAlign: "center"
     },
     movieCardImage: {
         width: "100%",
@@ -66,6 +68,9 @@ const MovieCard = (props) => {
             as={`/movie/${movieNameEncoded}/${movie.id}`} 
             href={`/movie?id=${movie.id}&name=${movieNameEncoded}`}>
             <ConstRatioImage ratio={1.5} src={moviePosterUrl} />
+            <Typography color="textPrimary" align="center" variant="button" display="block">
+                {movie.title}
+            </Typography>
             <Box className={classes.movieCardDates}>
                 {datesStrings.map((dateStr, i) => <div key={i}>{dateStr}</div>)}
             </Box>

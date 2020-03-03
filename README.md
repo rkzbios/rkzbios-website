@@ -1,3 +1,8 @@
+Standaard tijd op 20.30
+Live bekijken van de pagina
+
+Email inschrijving (Met Jasper)
+
 # Building with docker
 
 * First create tag
