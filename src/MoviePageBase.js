@@ -239,6 +239,24 @@ const MovieDatesAndTickets = (props) => {
 }
 
 
+const MovieDateAndTicketsT = (props) => {
+    const dateStr = getFormatedMovieDate(props.movieDate.date)
+
+    return <React.Fragment>
+        <Grid item xs={6}>{dateStr}</Grid>
+    </React.Fragment>
+}
+
+const MovieDatesAndTicketsT = (props) => {
+
+    return <Grid container className={props.classes.movieDates}>
+        {props.movie.movieDates.map((movieDate, i) => <MovieDateAndTicketsT classes={props.classes} movie={props.movie} movieDate={movieDate} key={i}/>)}
+    </Grid>
+
+}
+
+
+
 const MovieContent = (props) => {
 
     const movie = props.movie;
@@ -271,7 +289,7 @@ const MovieContent = (props) => {
 
             </Box> : null}
 
-            <MovieDatesAndTickets classes={props.classes} movie={movie} />
+            <MovieDatesAndTicketsT classes={props.classes} movie={movie} />
 
             <MovieBody classes={props.classes} body={movie.body} />
             {movie.premiere ? <div>Premiere in Groningen</div> : null}

@@ -50,8 +50,8 @@ import useSWR from 'swr'
 
 
 
-export const HOST = "http://localhost:8000";
-//export const HOST = "http://rkzbiosapi.jimboplatform.nl";
+//export const HOST = "http://localhost:8000";
+export const HOST = "http://rkzbiosapi.jimboplatform.nl";
 
 
 export const MOVIE_API_BASE_URL = `${HOST}/api/v2/`;
