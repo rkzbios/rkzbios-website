@@ -8,7 +8,9 @@ import Container from '@material-ui/core/Container';
 import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
+
+import Button from './Button'
 
 import BasePageLayout from "../src/BasePageLayout";
 
@@ -23,7 +25,7 @@ import { motion } from "framer-motion";
 
 import { toFullMediaUrl, getMoviePosterUrl } from '../src/utils';
 
-import { getMovieDatesStr, toReleaseDateStr } from "./utils";
+import { getMovieDatesStr, getFormatedMovieDate, toReleaseDateStr } from "./utils";
 
 
 
@@ -166,6 +168,9 @@ const useStyles = makeStyles(theme => ({
     },
     posterContainer: {
         position: 'relative'
+    },
+    ticketButton: {
+        fontSize: "0.5em"
     }
 
 }));
@@ -174,39 +179,85 @@ const useStyles = makeStyles(theme => ({
 
 const PosterImage = (props) => {
 
-    
+
     const classes = useStyles();
     return <div className={classes.posterContainer}>
         <img className={classes.posterImage} src={props.src}>
         </img>
-        {props.showPlayButton ? <img 
-            className={classes.playButton} 
+        {props.showPlayButton ? <img
+            className={classes.playButton}
             src="/static/images/play-white.png"
             onClick={() => props.onPlayClick()}
-            ></img>: null}
-        </div>        
+        ></img> : null}
+    </div>
+}
+
+
+const MovieDateAndTickets = (props) => {
+
+    const dateStr = getFormatedMovieDate(props.movieDate.date)
+
+    return <React.Fragment>
+        <Grid item xs={6}>{dateStr}</Grid>
+        <Grid container item xs={6}>
+            <Grid item xs={6}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    className={props.classes.ticketButton}
+                    href={`/tickets?movieId=${props.movie.id}&movieDateId=${props.movieDate.id}&nrOfSeats=1`} 
+          
+                >
+                    One seat ticket
+                </Button>
+
+            </Grid>
+            <Grid item xs={6}>
+            <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    className={props.classes.ticketButton}
+                    href={`/tickets?movieId=${props.movie.id}&movieDateId=${props.movieDate.id}&nrOfSeats=2`} 
+                >
+                    Double seat ticket
+                </Button>
+            </Grid>
+        </Grid>
+    </React.Fragment>
+
+}
+
+
+const MovieDatesAndTickets = (props) => {
+
+    return <Grid container className={props.classes.movieDates}>
+        {props.movie.movieDates.map((movieDate, i) => <MovieDateAndTickets classes={props.classes} movie={props.movie} movieDate={movieDate} key={i}></MovieDateAndTickets>)}
+    </Grid>
+
 }
 
 
 const MovieContent = (props) => {
 
     const movie = props.movie;
-    const datesStrings = getMovieDatesStr(movie.movieDates)
+    // const datesStrings = getMovieDatesStr(movie.movieDates)
 
-    const isDoubleBill = movie.doubleBillMovie ? true: false;
-    const doubleBillTitle = movie.doubleBillMovie ? "Double Feature, samen met " + movie.doubleBillMovie.title: null;
-    
+    const isDoubleBill = movie.doubleBillMovie ? true : false;
+    const doubleBillTitle = movie.doubleBillMovie ? "Double Feature, samen met " + movie.doubleBillMovie.title : null;
 
-    const classifications = movie.classifications ? movie.classifications.map( (classification, i) => {
 
-        const classificationImageUrl =  "/static/images/" + classification.icon;
+    const classifications = movie.classifications ? movie.classifications.map((classification, i) => {
+
+        const classificationImageUrl = "/static/images/" + classification.icon;
         return <Box className={props.classes.classificationBox} key={i}>
             <img className={props.classes.classificationImage} src={classificationImageUrl} />
         </Box>
     }) : null;
 
 
-    const externalLinks = movie.externalLinks ? movie.externalLinks.map( (externalLink, i) => {
+    const externalLinks = movie.externalLinks ? movie.externalLinks.map((externalLink, i) => {
         return <Box key={i} className={props.classes.externalLinks}>
             <a className={props.classes.externalLink} target="_blank" href={externalLink.linkExternal}>Meer informatie op {externalLink.typeLink}</a>
         </Box>
@@ -218,15 +269,14 @@ const MovieContent = (props) => {
             {isDoubleBill ? <Box className={props.classes.doubleBill}>
                 <Chip color="secondary" label={doubleBillTitle} icon={<FaceIcon />} />
 
-            </Box>: null}
-            <Box className={props.classes.movieDates}>
-                {datesStrings.map( (dateStr, i) => <Box key={i}>{dateStr}</Box>)}
-            </Box>
+            </Box> : null}
+
+            <MovieDatesAndTickets classes={props.classes} movie={movie} />
 
             <MovieBody classes={props.classes} body={movie.body} />
             {movie.premiere ? <div>Premiere in Groningen</div> : null}
             {movie.movieType ? <Box className={props.classes.movieType}>{movie.movieType}</Box> : null}
-            
+
 
             <Grid container className={props.classes.labelBox}  >
                 <Grid item xs={6}>
@@ -255,24 +305,24 @@ const MovieContent = (props) => {
                 <Grid item xs={6}>
                     <Box className={props.classes.labelName}>Taal</Box>
                     <Box className={props.classes.labelValue}>
-                    {movie.spokenLanguage ? <span>{movie.spokenLanguage}</span> : null}
+                        {movie.spokenLanguage ? <span>{movie.spokenLanguage}</span> : null}
                     </Box>
                 </Grid>
                 {movie.subtitleLanguage ?
-                <Grid item xs={6}>
-                    <Box className={props.classes.labelName}>Ondertiteling</Box>
-                    <Box className={props.classes.labelValue}>
-                        {movie.subtitleLanguage}
-                    </Box>
-                </Grid>
-                :null}
+                    <Grid item xs={6}>
+                        <Box className={props.classes.labelName}>Ondertiteling</Box>
+                        <Box className={props.classes.labelValue}>
+                            {movie.subtitleLanguage}
+                        </Box>
+                    </Grid>
+                    : null}
 
             </Grid>
-            
+
             <Box className={props.classes.labelBox}>
                 {externalLinks}
             </Box>
-  
+
         </Box>
     );
 }
@@ -284,7 +334,7 @@ const MoviePageBase = (props) => {
     const movie = props.currentMovie;
     const posterUrl = getMoviePosterUrl(props.currentMovie);
     const backgroundImageUrl = toFullMediaUrl(props.currentMovie.movieBackDrop.meta.download_url);
-    const trailer = movie.trailer ? movie.trailer: null; 
+    const trailer = movie.trailer ? movie.trailer : null;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -293,13 +343,13 @@ const MoviePageBase = (props) => {
     const handleClose = () => {
         setOpen(false);
     };
-    
 
-    const showPlayButton = trailer ? true: false;
+
+    const showPlayButton = trailer ? true : false;
 
     return (
         <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle={movie.title} mainMenuItems={props.mainMenuItems}>
-            {trailer ? <MovieTrailerDialog url={trailer} open={open} onClose={handleClose} />: null}
+            {trailer ? <MovieTrailerDialog url={trailer} open={open} onClose={handleClose} /> : null}
             <Container maxWidth="lg">
                 <Grid container spacing={4}>
                     <Grid item md={10} xs={12} container className={classes.movieContainer}>
@@ -312,7 +362,7 @@ const MoviePageBase = (props) => {
                             </motion.div>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <MovieContent classes={classes} movie={movie}  />
+                            <MovieContent classes={classes} movie={movie} />
                         </Grid>
                     </Grid>
                     <Grid container item xs={12} md={2}>

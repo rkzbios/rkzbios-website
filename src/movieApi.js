@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch';
+import useSWR from 'swr'
 
 
  const queryMapToQueryString = (queryObject) => {
@@ -49,10 +50,45 @@ import fetch from 'isomorphic-unfetch';
 
 
 
- //const MOVIE_API_BASE_URL = 'http://localhost:8000/api/v2/'
- const MOVIE_API_BASE_URL = 'http://rkzbiosapi.jimboplatform.nl/api/v2/'
+export const HOST = "http://localhost:8000";
+//export const HOST = "http://rkzbiosapi.jimboplatform.nl";
+
+
+export const MOVIE_API_BASE_URL = `${HOST}/api/v2/`;
+export const TICKET_API_BASE_URL = `${HOST}/api/tickets/`;
+ //export const MOVIE_API_BASE_URL = 'http://rkzbiosapi.jimboplatform.nl/api/v2/'
+
 
  
+const fetcher = async url => {
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log("returning from fetcher ", data)
+  return data;
+}
+
+
+export const useMovie = (id) => {
+  const resourceUrl = `${MOVIE_API_BASE_URL}moviePages/${id}/`;
+  const { data, error } = useSWR(resourceUrl, fetcher)
+  return {
+    movie: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
+
+
+export const useAvailability = (movieDateId) => {
+  const resourceUrl = `${TICKET_API_BASE_URL}availability/${movieDateId}/`;
+  const { data, error } = useSWR(resourceUrl, fetcher)
+  return {
+    availability: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
+
 
  class MovieApi {
     

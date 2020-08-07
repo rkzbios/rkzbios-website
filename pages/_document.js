@@ -22,19 +22,13 @@ class RKZBiosDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="icon" type="image/png" href="/static/img/favicon.png" />
-         
- 
+          <link rel="stylesheet" media="print" href="/static/css/basic-print.css"/>
+          <link rel="stylesheet" href="/static/css/leaflet-1.5.1.css"/>
+    
           <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet"/>
-
-
-    <link
-      rel="stylesheet"
-      href="/static/css/leaflet-1.5.1.css"
-    />
-      
-        <script src="/static/js/delayed-scroll-restoration-polyfill@0.1.1.js"></script>
-
+    
+          <script src="/static/js/delayed-scroll-restoration-polyfill@0.1.1.js"></script>
           
         </Head>
         <body>
@@ -96,7 +90,7 @@ RKZBiosDocument.getInitialProps = async ctx => {
     lang: lang,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: (
-      <React.Fragment>
+      <React.Fragment key="styles">
         {sheets.getStyleElement()}
         {flush() || null}
       </React.Fragment>
