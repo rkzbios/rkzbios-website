@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import {
   Checkboxes,
-  CheckboxData,
   Radios,
   RadioData,
   makeValidate,
@@ -22,14 +21,11 @@ import * as Yup from 'yup';
 
 
 import Wizard from './Wizard'
-
+import {paymentTypeData, paymentTypeToLabel} from './reservationUtils';
 
 const useStyles = makeStyles(theme => ({
 
   formContainer: {
-    borderRadius: 3,
-    padding: 24,
-    background: 'rgba(60, 60, 60, 0.95)',
     '& .MuiFormControl-root': {
       margin: theme.spacing(1)
     },
@@ -55,24 +51,6 @@ const ticketPaymentSchema = Yup.object().shape({
 
 
 
-// const initialValues= {
-//   terms: false,
-//   email: '',
-//   emailVerification: '',
-//   paymentType: 'normal',
-
-// };
-
-
-
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-const onSubmit = async values => {
-  await sleep(300)
-  window.alert(JSON.stringify(values, 0, 2))
-}
-
 const Error = ({ name }) => (
   <Field
     name={name}
@@ -83,66 +61,12 @@ const Error = ({ name }) => (
   />
 )
 
-const Overview = ({ name, toDisplayValue }) => (
-  <Field
-    name={name}
-    subscribe={{ touched: true }}
-    render={({ input: { value } }) =>
-      <span>{toDisplayValue ? toDisplayValue(value) : value}</span>
-    }
-  />
-)
+
 
 
 const required = value => (value ? undefined : 'Required')
-
-
-
 const validateTicketPayment = makeValidate(ticketPaymentSchema);
 const requiredTicketPayment = makeRequired(ticketPaymentSchema);
-
-
-
-const paymentTypeData = [
-  { label: 'Normaal', value: 'normal' },
-  { label: 'StrippenKaart', value: 'strippenkaart' },
-  { label: 'Bioscoop pas', value: 'bioscooppas' },
-  { label: 'Stadjespas (korting 2 euro)', value: 'stadjespas' },
-  { label: 'Studentenpas (korting 2 euro)', value: 'studentenpas' },
-  { label: 'Lid vereniging RKZ (korting 2 euro)', value: 'rkzmember' },
-];
-
-
-const valueToLabel = (labelValueArray) => {
-
-  return (value) => {
-
-    const valueLabel = labelValueArray.find(nameValue => nameValue.value == value)
-    if (valueLabel) {
-      return valueLabel.label
-    }
-    return null;
-  }
-}
-
-
-const paymentTypeToLabel = valueToLabel(paymentTypeData);
-
-
-const initialValuesSingleSeat = {
-  terms: true,
-  email: 'robert.hofstra@gmail',
-  emailVerification: 'robert.hofstra@gmail',
-  paymentTypes: ['normal']
-};
-
-const initialValuesDoubleSeat = {
-  terms: true,
-  email: 'robert.hofstra@gmail',
-  emailVerification: 'robert.hofstra@gmail',
-  paymentTypes: ['normal', 'normal']
-};
-
 
 
 const TicketsForm = (props) => {
@@ -150,19 +74,11 @@ const TicketsForm = (props) => {
 
   const classes = useStyles();
 
-
-  
-  const initialValues = Number(props.nrOfSeats) === 1 ? initialValuesSingleSeat : initialValuesDoubleSeat;
-
-  console.log("tf ", props)
-
-
   return <div className={classes.formContainer}>
-    <h1>{props.movieTitle} {props.movieDate} </h1>
 
     <Wizard
-      initialValues={initialValues}
-      onSubmit={onSubmit}
+      initialValues={props.initialValues}
+      onSubmit={props.onSubmit}
     >
       <Wizard.Page
         validate={values => {
@@ -223,6 +139,7 @@ const TicketsForm = (props) => {
             {({ fields }) =>
               fields.map((name, index) => (
                 <Radios
+                  key={index}
                   label={`Strippenkaart/korting seat ${index + 1}`}
                   name={name}
                   required={true}
@@ -236,22 +153,7 @@ const TicketsForm = (props) => {
 
         </div>
       </Wizard.Page>
-      <Wizard.Page>
-        <Grid container spacing={4} className={classes.movieContainer}>
-          <Grid item xs={6}>
-            Email:
-          </Grid>
-          <Grid item xs={6} >
-            <Overview name="email" />
-          </Grid>
-          <Grid item xs={6}>
-            Betaal optie:
-          </Grid>
-          <Grid item xs={6} >
-            <Overview name="paymentTypes" toDisplayValue={paymentTypeToLabel} />
-          </Grid>
-        </Grid>
-      </Wizard.Page>
+
 
     </Wizard>
   </div>

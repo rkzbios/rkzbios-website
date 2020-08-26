@@ -82,7 +82,7 @@ export default class Wizard extends React.Component {
                 </Button>}
               {isLastPage && (
                 <Button variant="contained" color="primary" disableElevation type="submit">
-                 Afronden
+                 Naar overzicht
               </Button>
               )}
             </div>

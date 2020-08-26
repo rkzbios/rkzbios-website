@@ -7,10 +7,10 @@ import NextLink from 'next/link';
 import MuiLink from '@material-ui/core/Link';
 
 function NextComposed(props) {
-  const { as, href, prefetch, ...other } = props;
+  const { as, href, prefetch, key, ...other } = props;
 
   return (
-    <NextLink href={href} prefetch={prefetch} as={as}>
+    <NextLink key={key} href={href} prefetch={prefetch} as={as}>
       <a {...other} />
     </NextLink>
   );

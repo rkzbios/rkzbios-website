@@ -20,6 +20,7 @@ import { H1, Body1 } from "./Typo";
 import { Box } from '@material-ui/core';
 
 import MovieList from "./MovieList";
+import MovieDate from './MovieDate';
 
 import { motion } from "framer-motion";
 
@@ -195,10 +196,9 @@ const PosterImage = (props) => {
 
 const MovieDateAndTickets = (props) => {
 
-    const dateStr = getFormatedMovieDate(props.movieDate.date)
-
+    
     return <React.Fragment>
-        <Grid item xs={6}>{dateStr}</Grid>
+        <Grid item xs={6}><MovieDate date={props.movieDate.date} /></Grid>
         <Grid container item xs={6}>
             <Grid item xs={6}>
                 <Button
@@ -232,7 +232,7 @@ const MovieDateAndTickets = (props) => {
 
 const MovieDatesAndTickets = (props) => {
 
-    return <Grid container className={props.classes.movieDates}>
+    return <Grid container>
         {props.movie.movieDates.map((movieDate, i) => <MovieDateAndTickets classes={props.classes} movie={props.movie} movieDate={movieDate} key={i}></MovieDateAndTickets>)}
     </Grid>
 
@@ -240,10 +240,9 @@ const MovieDatesAndTickets = (props) => {
 
 
 const MovieDateAndTicketsT = (props) => {
-    const dateStr = getFormatedMovieDate(props.movieDate.date)
 
     return <React.Fragment>
-        <Grid item xs={6}>{dateStr}</Grid>
+        <Grid item xs={6}><MovieDate date={props.movieDate.date} /></Grid>
     </React.Fragment>
 }
 
@@ -289,7 +288,7 @@ const MovieContent = (props) => {
 
             </Box> : null}
 
-            <MovieDatesAndTicketsT classes={props.classes} movie={movie} />
+            <MovieDatesAndTickets classes={props.classes} movie={movie} />
 
             <MovieBody classes={props.classes} body={movie.body} />
             {movie.premiere ? <div>Premiere in Groningen</div> : null}

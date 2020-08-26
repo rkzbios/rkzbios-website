@@ -50,13 +50,12 @@ import useSWR from 'swr'
 
 
 
-//export const HOST = "http://localhost:8000";
-export const HOST = "http://rkzbiosapi.jimboplatform.nl";
+export const HOST = "http://localhost:8000";
+//export const HOST = "http://rkzbiosapi.jimboplatform.nl";
 
 
 export const MOVIE_API_BASE_URL = `${HOST}/api/v2/`;
 export const TICKET_API_BASE_URL = `${HOST}/api/tickets/`;
- //export const MOVIE_API_BASE_URL = 'http://rkzbiosapi.jimboplatform.nl/api/v2/'
 
 
  
@@ -90,7 +89,117 @@ export const useAvailability = (movieDateId) => {
 }
 
 
- class MovieApi {
+export const useGetTicketStatus = (ticketId) => {
+  const resourceUrl = `${TICKET_API_BASE_URL}status/${ticketId}/`;
+  const { data, error } = useSWR(resourceUrl, fetcher)
+  console.log("ticketStatus ", data)
+  return {
+    ticketStatus: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
+
+
+export const useGetTicketEmailConfirmationStatus = (confirmationId) => {
+  const resourceUrl = `${TICKET_API_BASE_URL}ticket-confirmation/${confirmationId}/`;
+  const { data, error } = useSWR(resourceUrl, fetcher)
+  console.log("ticket confiramtion Status ", data)
+  return {
+    ticketConfirmationStatus: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
+
+class TicketApi {
+    
+  constructor(){
+   if(! TicketApi.instance){
+     this._data = [];
+     TicketApi.instance = this;
+   }
+
+   return TicketApi.instance;
+  }
+
+
+  getAvailability = async(movieDateId) => {
+    const resourceUrl = `${TICKET_API_BASE_URL}availability/${movieDateId}/`;
+    const res = await fetch(resourceUrl);
+    const data = await res.json();
+    return data;
+  }
+  
+
+
+  getPriceAvailability = async function(ticketRequest) {
+    let resourceUrl = `${TICKET_API_BASE_URL}price-availability/`;
+    //console.log("Fetching ", resourceUrl);
+    const res = await fetch(resourceUrl,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(ticketRequest)
+      }
+    );
+    const data = await res.json();
+    return data;
+  }
+
+  requestTicket = async function(ticketRequest){
+    let resourceUrl = `${TICKET_API_BASE_URL}ticket-request/`;
+    //console.log("Fetching ", resourceUrl);
+    const res = await fetch(resourceUrl,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(ticketRequest)
+      }
+    );
+    const data = await res.json();
+    return data;
+  }
+
+
+  getTicketEmailConfirmationStatus = async(confirmationId) => {
+    const resourceUrl = `${TICKET_API_BASE_URL}ticket-confirmation/${confirmationId}/`;
+    const res = await fetch(resourceUrl);
+    const data = await res.json();
+    return data;
+   }
+
+
+  confirmTicket = async(confirmationId) => {
+    const resourceUrl = `${TICKET_API_BASE_URL}ticket-confirmation/${confirmationId}/`;
+    const res = await fetch(resourceUrl,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({})
+      }
+    );
+    const data = await res.json();
+    return data;
+  }
+
+  getTicketPrintData = async(ticketId, accessToken) => {
+    const resourceUrl = `${TICKET_API_BASE_URL}ticket-print-data/${ticketId}/?accessToken=${accessToken}`;
+    const res = await fetch(resourceUrl);
+    const data = await res.json();
+    return data;
+  }
+
+}
+
+
+class MovieApi {
     
     constructor(){
      if(! MovieApi.instance){
@@ -145,10 +254,15 @@ export const useAvailability = (movieDateId) => {
 };
   
   
-  const movieApi = new MovieApi();
-  Object.freeze(movieApi);
+const movieApi = new MovieApi();
+Object.freeze(movieApi);
 
-  export default movieApi;
+export const ticketApi = new TicketApi();
+//Object.freeze(ticketApi);
+
+//export ticketApi;
+
+export default movieApi;
 
 
 

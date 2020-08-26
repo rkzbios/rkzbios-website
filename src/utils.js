@@ -30,8 +30,11 @@ export const getMovieDatesStrShort = (movieDates) => {
 }
 
 export const getFormatedMovieDate = (movieDateDate) => {
+  const endsWithZ = movieDateDate.endsWith('Z')
   const movieDate = moment(movieDateDate);
-  movieDate.utcOffset(0); // Strange, 2019-11-29T20:30:00Z  is translated to  21.30  movieDate.utcOffset() gives 60 (minutes) so I correct it
+  if (endsWithZ){
+    movieDate.utcOffset(0); // Strange, 2019-11-29T20:30:00Z  is translated to  21.30  movieDate.utcOffset() gives 60 (minutes) so I correct it
+  }
   //console.log( "moment ", movieDate.utcOffset())
   return movieDate.format('LLLL');
 }

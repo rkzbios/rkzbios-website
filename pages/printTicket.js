@@ -3,12 +3,15 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 
-import movieApi from '../src/movieApi';
+import {ticketApi} from '../src/movieApi';
 import BasePrintPage from '../src/BasePrintPage';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { getPrintTheme } from '../src/themeForPrint';
 import { getFormatedMovieDate } from '../src/utils';
+
+import { getPaymentTypesLabel, getSeatTypeLabel } from '../src/reservation/reservationUtils';
+
 
 
 import QRCode from 'qrcode.react';
@@ -44,7 +47,7 @@ const PrintTicketPage = ({ ticket }) => {
 
     const classes = useStyles();
 
-    const dateStr = getFormatedMovieDate(ticket.moviedate)
+    const dateStr = getFormatedMovieDate(ticket.movieDate)
 
 
     return <BasePrintPage theme={getPrintTheme()} >
@@ -55,8 +58,8 @@ const PrintTicketPage = ({ ticket }) => {
                     <Box>
                         <H1>{ticket.movieTitle}</H1>
                         <Box>{dateStr}</Box>
-                        <Box>{ticket.seatType}</Box>
-                        <Box>{ticket.paymentType}</Box>
+                        <Box>{getSeatTypeLabel(ticket.ticketRequest.nrOfSeats)}</Box>
+                        <Box>{getPaymentTypesLabel(ticket.ticketRequest.paymentTypes)}</Box>
                         <Box>Nr: {ticket.ticketNumber}</Box>
                         <Box>Code: {ticket.code}</Box>
                     </Box>
@@ -70,20 +73,20 @@ const PrintTicketPage = ({ ticket }) => {
 
 
 
-PrintTicketPage.getInitialProps = async function ({ res, query: { ticketId, token } }) {
+PrintTicketPage.getInitialProps = async function ({query: { ticketId, token } }) {
 
-    //   const ticket = await movieApi.getTicket(ticketId, token),
+    const ticket = await ticketApi.getTicketPrintData(ticketId, token)
 
-    const ticket = {
-        "code": "ERZV",
-        "ticketNumber": "23",
-        "seatType": "Duoseat",
-        "paymentType": "Strippenkaart",
-        "movieDateId": "12",
-        "moviedate": "2019-11-29T20:30:00Z",
-        "movieTitle": "Jojo Rabit",
-        "qrCode": "ERZV"
-    }
+    // const ticket = {
+    //     "code": "ERZV",
+    //     "ticketNumber": "23",
+    //     "seatType": "Duoseat",
+    //     "paymentType": "Strippenkaart",
+    //     "movieDateId": "12",
+    //     "movieDate": "2019-11-29T20:30:00Z",
+    //     "movieTitle": "Jojo Rabit",
+    //     "qrCode": "ERZV"
+    // }
 
     return {
         ticket

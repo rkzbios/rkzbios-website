@@ -58,7 +58,7 @@ const SiteMenu = (props) => {
                 </Grid>
                 <Grid item md={4} xs={12}>
                     <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-                        {props.mainMenuItems.map(menuItem => (
+                        {props.mainMenuItems.map( (menuItem) => (
                             <Link
                                 color="inherit"
                                 noWrap
