@@ -13,8 +13,10 @@ import FaceIcon from '@material-ui/icons/Face';
 import Button from './Button'
 
 import BasePageLayout from "../src/BasePageLayout";
-import MoviePosterAndContent from '../src/MoviePosterAndContent';
 
+import MovieTrailerDialog from "./MovieTrailerDialog";
+import PosterImage from "./PosterImage";
+import MovieContent from "./MovieContent";
 
 import { H1, Body1 } from "./Typo";
 import { Box } from '@material-ui/core';
@@ -22,6 +24,7 @@ import { Box } from '@material-ui/core';
 import MovieList from "./MovieList";
 import MovieDate from './MovieDate';
 
+import { motion } from "framer-motion";
 
 import { toFullMediaUrl, getMoviePosterUrl } from '../src/utils';
 
@@ -68,9 +71,6 @@ const useStyles = makeStyles(theme => ({
         marginTop: 40
     },
 
-    posterImage: {
-        width: "100%"
-    },
 
     quote: {
         fontStyle: "italic",
@@ -176,36 +176,34 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
+const MoviePosterAndContent = ({ classes, movie }) => {
+    const [open, setOpen] = React.useState(false);
+    const posterUrl = getMoviePosterUrl(movie);
+    const trailer = movie.trailer ? movie.trailer : null;
+    
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
 
-const NoMovie = ()=> {
-    return <div>No movie</div>
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const showPlayButton = trailer ? true : false;
+
+    return <Grid item md={10} xs={12} container className={classes.movieContainer}>
+       {trailer ? <MovieTrailerDialog url={trailer} open={open} onClose={handleClose} /> : null}
+        <Grid item xs={12} md={6}>
+            <motion.div
+                animate={{ scale: [0.9, 1] }}
+                transition={{ duration: 0.5 }}>
+                <PosterImage src={posterUrl} showPlayButton={showPlayButton} onPlayClick={handleClickOpen} />
+            </motion.div>
+        </Grid>
+        <Grid item xs={12} md={6}>
+            <MovieContent classes={classes} movie={movie} />
+        </Grid>
+    </Grid>
 }
 
-
-const MoviePageBase = (props) => {
-   
-    const classes = useStyles();
-
-    const movie = props.currentMovie;
-    const currentMovie = movie ? <MoviePosterAndContent movie={movie} classes={classes}/>: <NoMovie/>
-   
-
-    const backgroundImageUrl = movie ? toFullMediaUrl(movie.movieBackDrop.meta.download_url): null;
-    const pageTitle = movie ? movie.title : "Geen Film"
-
-    return (
-        <BasePageLayout backgroundImage={backgroundImageUrl} clases={classes} pageTitle={pageTitle} mainMenuItems={props.mainMenuItems}>
-           
-            <Container maxWidth="lg">
-                <Grid container spacing={4}>
-                    {currentMovie}
-                    <Grid container item xs={12} md={2}>
-                        <MovieList classes={classes} movies={props.activeMovies.items} />
-                    </Grid>
-                </Grid>
-            </Container>
-        </BasePageLayout >
-    )
-}
-
-export default MoviePageBase;
+export default MoviePosterAndContent;

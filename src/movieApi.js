@@ -51,7 +51,8 @@ import useSWR from 'swr'
 
 
 //export const HOST = "http://localhost:8000";
-export const HOST = "http://rkzbiosapi.jimboplatform.nl";
+export const HOST = "https://rkzbiosapi.jimboplatform.nl";
+
 
 
 export const MOVIE_API_BASE_URL = `${HOST}/api/v2/`;
@@ -216,13 +217,28 @@ class MovieApi {
       let resourceUrl = `${MOVIE_API_BASE_URL}moviePages/${id}/`;
       //console.log("Fetching ", resourceUrl);
       const res = await fetch(resourceUrl);
-      const data = await res.json();
-      return data;
+      if(res.status != 200){
+        throw new Error('Movie not found'); 
+      }else{
+         const data = await res.json();
+         return data;
+      }
     }
 
     getCurrentMovie = async function() {
-      
-      return this.getMovie("_current");
+      let resourceUrl = `${MOVIE_API_BASE_URL}moviePages/_current/`;
+      console.log("Fetching ", resourceUrl);
+      const res = await fetch(resourceUrl);
+
+      if(res.status === 404){
+        console.log("404 returned ");
+
+        return null;
+      }else{
+         const data = await res.json();
+         return data;
+      }
+    
     }
 
     getMovies = async function({movieFilter = null}){

@@ -90,7 +90,13 @@ const TicketsForm = (props) => {
         }}
       >
         <div>
-          <div><p>Hierbij verklaar ik dat ik geen sympotomen en......</p></div>
+          <div>
+            <p>Hierbij verklaar ik dat</p>
+            <ul>
+              <li>ik geen last van koorts, benauwdheid, hoesten, keelpijn en/of andere verkoudheidsklachten heb.</li>
+              <li>ik geen huisgenoot heb met koorts en/of benauwdheid.</li>
+            </ul>
+          </div>
           <Checkboxes
             name="terms"
             required={requiredTicketPayment.terms}

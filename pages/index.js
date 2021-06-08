@@ -12,16 +12,18 @@ const HomePage = (props) => {
 }
 
 
-
+const HOME_PAGE_ID = 10;
 
 HomePage.getInitialProps = async function () {
 
 
   let [
+    homePage,
     currentMovie,
     activeMovies,
     mainMenuItems
   ] = await Promise.all([
+    await await movieApi.getPage(HOME_PAGE_ID),
     await movieApi.getCurrentMovie(),
     await movieApi.getMovies({}),
     await movieApi.getMainMenu()
@@ -30,6 +32,7 @@ HomePage.getInitialProps = async function () {
   console.log("data ", currentMovie, " all ", activeMovies)
 
   return {
+    homePage,
     currentMovie,
     activeMovies,
     mainMenuItems

@@ -77,6 +77,7 @@ PrintTicketPage.getInitialProps = async function ({query: { ticketId, token } })
 
     const ticket = await ticketApi.getTicketPrintData(ticketId, token)
 
+    // used for tryout print service on the server..
     // const ticket = {
     //     "code": "ERZV",
     //     "ticketNumber": "23",
