@@ -96,8 +96,7 @@ app.prepare().then(() => {
   */
  
   server.get('/printTicket/:ticketId/:token', (req, res) => {
-    console.log("printTicket")
-    return app.render(req, res, "/printTicket", { id: req.params.ticketId, token: req.params.token });
+    return app.render(req, res, "/printTicket", { ticketId: req.params.ticketId, token: req.params.token });
   });
 
 
