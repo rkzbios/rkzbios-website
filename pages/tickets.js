@@ -44,9 +44,9 @@ const createInitialValues = ({ nrOfSeats, movieDateId }) => {
   return {
     nrOfSeats,
     movieDateId,
-    terms: true,
-    email: 'robert.hofstra@gmail.com',
-    emailVerification: 'robert.hofstra@gmail.com',
+    terms: false,
+    email: '',
+    emailVerification: '',
     paymentTypes
   };
 }
