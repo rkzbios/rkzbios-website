@@ -83,7 +83,7 @@ const TicketResponse = ({ ticketRequestState }) => {
       return <div>Klik op de link om de betalig af te ronden <a href={ticketResponse.redirectUrl}>betalen</a></div>
     }
     if (ticketResponse.verificationBy == 'email') {
-      return <div>Er wordt een mail naar {ticketRequest.email} om de ticket aanvraag te bevestigen.</div>
+      return <div>Er wordt een mail naar {ticketRequest.email} verzonden met een link waarmee je de ticket aanvraag dient te bevestigen. Kijk eventueel ook in de spam folder.</div>
     }
     return <div>Er is iets fout gegaan</div>
   } else {

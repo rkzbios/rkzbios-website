@@ -1,5 +1,5 @@
 import { Component, createElement } from "react";
-import ReactGA from "react-ga";
+//import ReactGA from "react-ga";
 
 const IS_BROWSER = typeof window !== "undefined";
 
@@ -31,7 +31,7 @@ class AnalyticsApi {
 
     init = function (code) {
         if (SHOULD_TRACK && IS_BROWSER && !window.GA_INITIALIZED && code) {
-            ReactGA.initialize(code);
+            //ReactGA.initialize(code);
         } else {
             console.debug(`Analytics init triggered for ${code}`);
         }
@@ -39,8 +39,8 @@ class AnalyticsApi {
 
     pageview = function () {
         if (SHOULD_TRACK) {
-            ReactGA.set({ page: window.location.pathname });
-            ReactGA.pageview(window.location.pathname);
+            //ReactGA.set({ page: window.location.pathname });
+            //ReactGA.pageview(window.location.pathname);
         } else {
             console.debug(`Pageview triggered for ${window.location.pathname}`);
         }
@@ -49,7 +49,7 @@ class AnalyticsApi {
     event = function (category = "", action = "") {
         if (SHOULD_TRACK) {
             if (category && action) {
-                ReactGA.event({ category, action });
+                //ReactGA.event({ category, action });
             }
         } else {
             console.debug(`Event for category ${category} and action ${action} triggered`);
@@ -59,7 +59,7 @@ class AnalyticsApi {
     exception = function (description = "", fatal = false) {
         if (SHOULD_TRACK) {
             if (description) {
-                ReactGA.exception({ description, fatal });
+                //ReactGA.exception({ description, fatal });
             }
         } else {
             console.debug(

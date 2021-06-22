@@ -84,7 +84,7 @@ const MovieTrailerDialog = (props) => {
             Trailer
             </DialogTitle>
             <div className={classes.videoResponsive }>
-              <YoutubeEmbedVideo videoId={youtubeId} suggestions={false} />
+              <YoutubeEmbedVideo videoId={youtubeId} suggestions={false} enhancedPrivacy={true} />
             </div>
         </Dialog>
     );

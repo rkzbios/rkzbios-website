@@ -49,7 +49,7 @@ const TicketStatusRejected = ({ticketStatus}) => {
 }
 
 const TicketStatusAccepted = ({ticketStatus}) => {
-  return <div>U ticket is geaccepteerd, de ticket wordt per mail opgestuurd naar {ticketStatus.ticketRequest.email} </div>
+  return <div>U betaling is geaccepteerd, de ticket wordt per mail opgestuurd naar {ticketStatus.ticketRequest.email}. Indien u de mail niet heeft gekregen, check eerst de spam folder.</div>
 }
 
 const TicketStatusWaiting = ({ticketStatus}) => {

@@ -54,11 +54,16 @@ const Image = (props) => {
   return <img className={props.classes.image}  src={toFullMediaUrl(props.block.value)} />
 }
 
+const RichContent = (props) => {
+  return <div dangerouslySetInnerHTML={{ __html: props.block.value }}></div>;
+}
+
 
 const typeToComponentMap = {
   paragraph: BodyParagraph,
   heading: Heading,
-  image: Image
+  image: Image,
+  richContent: RichContent
 }
 
 const PageBody = (props) => {

@@ -44,7 +44,7 @@ const TicketStatusRejected = ({ ticketConfirmationStatus }) => {
 }
 
 const TicketStatusWaiting = ({ ticketConfirmationStatus, onTicketConfirm }) => {
-    return <div>Loading....</div>
+    return <div>Laden, even geduld a.u.b. .....</div>
 }
 
 
@@ -52,10 +52,10 @@ const ConfirmTicket = ({ ticketConfirmationStatus, onTicketConfirm, isConfirming
     return <React.Fragment>
         <MovieTitleDate title={ticketConfirmationStatus.movieTitle} date={ticketConfirmationStatus.movieDate} />
 
-        {isConfirming ? <div>wachten tot bevestinging</div>:
+        {isConfirming ? <div>wachten tot bevestiging</div>:
         <Button variant="contained" color="primary" disableElevation onClick={() => onTicketConfirm()}>
-            Bevestig
-            </Button>}
+            Bevestig ticket aanvraag
+        </Button>}
     </React.Fragment>
 }
 

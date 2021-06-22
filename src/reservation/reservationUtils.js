@@ -31,4 +31,8 @@ export const getPaymentTypesLabel = (paymentTypes) => {
   return paymentTypesNames.join(",")
 }
 
-export const getSeatTypeLabel = (nrOfSeats) =>  nrOfSeats === 1 ? 'enkel': "duo seat";
+export const getSeatTypeLabel = (nrOfSeatsStr) =>  {
+  const nrOfSeats =  parseInt(nrOfSeatsStr);
+  const value = nrOfSeats === 1 ? 'enkel': "duo seat";
+  return value;
+}
