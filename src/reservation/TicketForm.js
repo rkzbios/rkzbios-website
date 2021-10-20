@@ -91,7 +91,10 @@ const TicketsForm = (props) => {
       >
         <div>
           <div>
-            <p>Hierbij verklaar ik dat</p>
+            <p>Door het markeren van deze checkbox ga je ermee akkoord dat de toegang tot de bioscoop voor jou en je medebezoekers alleen verleend 
+              wordt op vertoon van een geldige QR-code uit de CoronaCheck app en vanaf 14 jaar in combinatie met een 
+              geldig ID (Paspoort, Identiteitskaart of Rijbewijs). Kinderen t/m 12 jaar worden niet gecontroleerd voor toegang tot de bioscoop.</p>
+            <p>Daarnaast verklaar ik dat</p>
             <ul>
               <li>ik geen last van koorts, benauwdheid, hoesten, keelpijn en/of andere verkoudheidsklachten heb.</li>
               <li>ik geen huisgenoot heb met koorts en/of benauwdheid.</li>
@@ -101,7 +104,7 @@ const TicketsForm = (props) => {
             name="terms"
             required={requiredTicketPayment.terms}
             data={{
-              label: 'Ja dat verklaar ik',
+              label: 'Ik heb bovenstaande verklaring begrepen',
               value: false,
             }}
           />
@@ -146,7 +149,7 @@ const TicketsForm = (props) => {
               fields.map((name, index) => (
                 <Radios
                   key={index}
-                  label={`Strippenkaart/korting seat ${index + 1}`}
+                  label={`Soort ticket strippenkaart/korting`}
                   name={name}
                   required={true}
                   data={paymentTypeData}

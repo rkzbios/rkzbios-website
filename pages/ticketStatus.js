@@ -68,7 +68,7 @@ const TicketAfterPayentPage = ({ticketId}) => {
   const { ticketStatus, isTicketStatusLoading, isTicketStatusError} = useGetTicketStatus(ticketId);
   
 
-  console.log("ticketId ", ticketId);
+  //console.log("ticketId ", ticketId);
 
   const movieTitle = ticketStatus ? ticketStatus.movieTitle : "";
   const MessageWidget = ticketStatus ? statusToMessage[ticketStatus.status]: TicketStatusWaiting;

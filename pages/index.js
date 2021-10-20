@@ -29,7 +29,7 @@ HomePage.getInitialProps = async function () {
     await movieApi.getMainMenu()
   ]);
 
-  console.log("data ", currentMovie, " all ", activeMovies)
+  //console.log("data ", currentMovie, " all ", activeMovies)
 
   return {
     homePage,

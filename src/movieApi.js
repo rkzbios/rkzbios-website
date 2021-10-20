@@ -51,8 +51,13 @@ import useSWR from 'swr'
 
 
 //export const HOST = "http://localhost:8000";
-export const HOST = "https://rkzbiosapi.jimboplatform.nl";
+//export const HOST = "https://rkzbiosapi.jimboplatform.nl";
 
+
+export const HOST = process.env.NODE_ENV === 'development' ?
+    'http://localhost:8000':
+    //'https://rkzbiosapi.jimboplatform.nl' :
+    'https://rkzbiosapi.jimboplatform.nl';
 
 
 export const MOVIE_API_BASE_URL = `${HOST}/api/v2/`;
@@ -63,7 +68,7 @@ export const TICKET_API_BASE_URL = `${HOST}/api/tickets/`;
 const fetcher = async url => {
   const res = await fetch(url);
   const data = await res.json();
-  console.log("returning from fetcher ", data)
+  //console.log("returning from fetcher ", data)
   return data;
 }
 
@@ -93,7 +98,7 @@ export const useAvailability = (movieDateId) => {
 export const useGetTicketStatus = (ticketId) => {
   const resourceUrl = `${TICKET_API_BASE_URL}status/${ticketId}/`;
   const { data, error } = useSWR(resourceUrl, fetcher)
-  console.log("ticketStatus ", data)
+  //console.log("ticketStatus ", data)
   return {
     ticketStatus: data,
     isLoading: !error && !data,
@@ -105,7 +110,7 @@ export const useGetTicketStatus = (ticketId) => {
 export const useGetTicketEmailConfirmationStatus = (confirmationId) => {
   const resourceUrl = `${TICKET_API_BASE_URL}ticket-confirmation/${confirmationId}/`;
   const { data, error } = useSWR(resourceUrl, fetcher)
-  console.log("ticket confiramtion Status ", data)
+  //console.log("ticket confiramtion Status ", data)
   return {
     ticketConfirmationStatus: data,
     isLoading: !error && !data,
@@ -227,11 +232,11 @@ class MovieApi {
 
     getCurrentMovie = async function() {
       let resourceUrl = `${MOVIE_API_BASE_URL}moviePages/_current/`;
-      console.log("Fetching ", resourceUrl);
+      //console.log("Fetching ", resourceUrl);
       const res = await fetch(resourceUrl);
 
       if(res.status === 404){
-        console.log("404 returned ");
+        //console.log("404 returned ");
 
         return null;
       }else{

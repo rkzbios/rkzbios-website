@@ -21,8 +21,7 @@ const TicketOverview = ({priceAndAvailability, ticketRequest, onPrevious, onComp
     
     <OverviewRow label="Prijs:" value={priceAndAvailability.noPayment ? "n.v.t": `${priceAndAvailability.price} €` } />
     <OverviewRow label="Email:" value={ticketRequest.email} />
-    <OverviewRow label="Seat:"  value={getSeatTypeLabel(ticketRequest.nrOfSeats)} />
-    <OverviewRow label="Ticket soorts:"  value={getPaymentTypesLabel(ticketRequest.paymentTypes)} />
+    <OverviewRow label="Ticket soort:"  value={getPaymentTypesLabel(ticketRequest.paymentTypes)} />
   </React.Fragment>        
  
   const nextButtonLabel = priceAndAvailability.noPayment ? "Ticket bestellen" : "Naar de kassa"

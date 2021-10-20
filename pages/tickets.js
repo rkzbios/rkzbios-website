@@ -120,6 +120,11 @@ const NoTicketsAvailablityWidget = ({ ticketRequestState, onSubmit }) => {
   return <div>Helaas zijn er geen tickets meer beschibaar.</div>
 }
 
+// const NoTicketsMoviePassedWidget = ({ ticketRequestState, onSubmit }) => {
+//   return <div>Helaas kunt u geen tickets meer kopen.</div>
+// }
+
+
 const StartTransactionWidget = ({ ticketRequestState, onSubmit, backToForm, completeTransaction }) => {
   return <div>Beschikbaarheid nogmaals controleren en transactie bevestigen...</div>
 }
@@ -152,11 +157,12 @@ const TicketsPage = ({ movieDateId, nrOfSeats }) => {
   const [ticketRequestState, setTicketRequestState] = useState(initialTicketRequestState);
 
   const getInitData = async () => {
-    console.log("getting init data");
+    //console.log("getting init data");
     const availability = await ticketApi.getAvailability(movieDateId);
 
     const hasAvailability = getAvailability({ availability, nrOfSeats });
-    const state = hasAvailability ? STATE_TICKET_REQUEST_FORM : STATE_NO_TICKETS_AVAILABLE
+    const movieNotPassed = !availability.isPassed;
+    const state = hasAvailability && movieNotPassed ? STATE_TICKET_REQUEST_FORM : STATE_NO_TICKETS_AVAILABLE
     const ticketRequest = createInitialValues({ nrOfSeats, movieDateId });
     setTicketRequestState({ state, availability, ticketRequest });
   };
@@ -187,14 +193,14 @@ const TicketsPage = ({ movieDateId, nrOfSeats }) => {
     const newState = {...ticketRequestState, state: STATE_TICKET_REQUEST_CONFIRMATION};
     setTicketRequestState(newState);
     const ticketResponse = await ticketApi.requestTicket(ticketRequestState.ticketRequest);
-    console.log(ticketResponse)
+    //console.log(ticketResponse)
     if (ticketResponse.redirectUrl) {
       window.location = ticketResponse.redirectUrl
     }
     setTicketRequestState({...newState, state: STATE_TICKET_RESPONSE_CONFIRMATION, ticketResponse});
   }
 
-  console.log(ticketRequestState);
+  //console.log(ticketRequestState);
 
   const Widget = stateToWidget[ticketRequestState.state];
 
@@ -226,9 +232,9 @@ const TicketsPage = ({ movieDateId, nrOfSeats }) => {
 
 TicketsPage.getInitialProps = async function ({ query: { movieId, movieDateId, nrOfSeats } }) {
 
-  console.log("movieId ", movieId);
-  console.log("movieDateId ", movieDateId);
-  console.log("nrOfSeats ", nrOfSeats);
+  // console.log("movieId ", movieId);
+  // console.log("movieDateId ", movieDateId);
+  // console.log("nrOfSeats ", nrOfSeats);
 
   return {
     movieId,
