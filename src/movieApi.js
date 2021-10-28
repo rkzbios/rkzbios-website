@@ -55,8 +55,8 @@ import useSWR from 'swr'
 
 
 export const HOST = process.env.NODE_ENV === 'development' ?
-    'http://localhost:8000':
-    //'https://rkzbiosapi.jimboplatform.nl' :
+    //'http://localhost:8000':
+    'https://rkzbiosapi.jimboplatform.nl' :
     'https://rkzbiosapi.jimboplatform.nl';
 
 

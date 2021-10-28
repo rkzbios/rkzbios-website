@@ -65,115 +65,116 @@ const MovieBody = (props) => {
 
 
 
-const useStyles = makeStyles(theme => ({
+// const useStyles = makeStyles(theme => ({
 
-    button: {
-        marginTop: 40
-    },
+//     button: {
+//         marginTop: 40
+//     },
 
 
-    quote: {
-        fontStyle: "italic",
-        marginTop: 16,
-    },
-    quoteFrom: {
-        fontStyle: "normal",
-    },
+//     quote: {
+//         fontStyle: "italic",
+//         marginTop: 16,
+//     },
+//     quoteFrom: {
+//         fontStyle: "normal",
+//     },
 
-    bodyParagraph: {
-        color: "lightgrey",
-    },
+//     bodyParagraph: {
+//         color: "lightgrey",
+//     },
 
-    movieContainer: {
-        borderRadius: 3,
-        background: 'rgba(0, 0, 0, 0.85)'
-    },
+//     movieContainer: {
+//         borderRadius: 3,
+//         background: 'rgba(0, 0, 0, 0.85)'
+//     },
 
-    movieContent: {
-        marginLeft: 16,
-        marginRight: 16,
-        marginBottom: 16
-    },
+//     movieContent: {
+//         marginLeft: 16,
+//         marginRight: 16,
+//         marginBottom: 16
+//     },
 
-    movieType: {
-        fontFamily: "Oswald,sans-serif",
-        color: "#00FC87",
-        fontSize: "1.3em",
-        textTransform: "capitalize",
-        marginTop: 16
-    },
-    movieDirectorCountry: {
-        fontFamily: "Oswald,sans-serif",
-        fontSize: "1.1em",
-        textTransform: "capitalize",
-        marginTop: 0
-    },
+//     movieType: {
+//         fontFamily: "Oswald,sans-serif",
+//         color: "#00FC87",
+//         fontSize: "1.3em",
+//         textTransform: "capitalize",
+//         marginTop: 16
+//     },
+//     movieDirectorCountry: {
+//         fontFamily: "Oswald,sans-serif",
+//         fontSize: "1.1em",
+//         textTransform: "capitalize",
+//         marginTop: 0
+//     },
 
-    movieList: {
-        marginTop: 40
-    },
-    externalLinks: {
-        marginTop: 16
-    },
-    externalLink: {
-        color: "white",
-    },
+//     movieList: {
+//         marginTop: 40
+//     },
+//     externalLinks: {
+//         marginTop: 16
+//     },
+//     externalLink: {
+//         color: "white",
+//     },
 
-    labelBox: {
-        marginTop: 16
-    },
+//     labelBox: {
+//         marginTop: 16
+//     },
 
-    labelName: {
-        fontFamily: "Oswald,sans-serif",
-        fontSize: "1.0em",
+//     labelName: {
+//         fontFamily: "Oswald,sans-serif",
+//         fontSize: "1.0em",
 
-    },
-    labelValue: {
-        fontFamily: "Oswald,sans-serif",
-        color: "#00FC87",
-        fontSize: "1.3em",
+//     },
+//     labelValue: {
+//         fontFamily: "Oswald,sans-serif",
+//         color: "#00FC87",
+//         fontSize: "1.3em",
 
-    },
-    movieDates: {
-        fontFamily: "Oswald,sans-serif",
-        color: "#00FC87",
-        fontSize: "1.0em",
-    },
-    doubleBill: {
-        marginBottom: 16,
-        marginTop: 16
-    },
-    classification: {
-        backgroundColor: "white"
-    },
-    classificationBox: {
-        display: "inline",
-        marginRight: 8
-    },
-    classificationImage: {
-        width: "1.5em",
-        height: "1.5em",
-    },
-    playButton: {
-        position: 'absolute',
-        top: '50%',
-        right: '50%',
-        width: 90,
-        height: 90,
-        marginTop: -45,
-        marginRight: -45,
-        '&:hover': {
-            transform: 'scale(1.3)'
-        },
-    },
-    posterContainer: {
-        position: 'relative'
-    },
-    ticketButton: {
-        fontSize: "0.5em"
-    }
+//     },
+//     movieDates: {
+//         fontFamily: "Oswald,sans-serif",
+//         color: "#00FC87",
+//         fontSize: "1.0em",
+//     },
+//     doubleBill: {
+//         marginBottom: 16,
+//         marginTop: 16
+//     },
+//     classification: {
+//         backgroundColor: "white"
+//     },
+//     classificationBox: {
+//         display: "inline",
+//         marginRight: 8
+//     },
+//     classificationImage: {
+//         width: "1.5em",
+//         height: "1.5em",
+//     },
+//     playButton: {
+//         position: 'absolute',
+//         top: '50%',
+//         right: '50%',
+//         width: 90,
+//         height: 90,
+//         marginTop: -45,
+//         marginRight: -45,
+//         '&:hover': {
+//             transform: 'scale(1.3)'
+//         },
+//     },
+//     posterContainer: {
+//         position: 'relative'
+//     },
+//     ticketButton: {
+//         fontSize: "0.5em",
+//         margin: theme.spacing(1),
+//     }
 
-}));
+// }));
 
 
 const MoviePosterAndContent = ({ classes, movie }) => {

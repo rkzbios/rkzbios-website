@@ -170,7 +170,8 @@ const useStyles = makeStyles(theme => ({
         position: 'relative'
     },
     ticketButton: {
-        fontSize: "0.5em"
+        fontSize: "0.5em",
+        margin: theme.spacing(1)
     }
 
 }));

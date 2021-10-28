@@ -155,7 +155,8 @@ const useStyles = makeStyles(theme => ({
 
 
     ticketButton: {
-        fontSize: "0.5em"
+        fontSize: "0.5em",
+        margin: theme.spacing(2)
     }
 
 }));
@@ -174,7 +175,6 @@ const MovieDateAndTickets = (props) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    size="small"
                     className={props.classes.ticketButton}
                     href={`/tickets?movieId=${props.movie.id}&movieDateId=${props.movieDate.id}&nrOfSeats=1`}
 
@@ -192,27 +192,27 @@ const MovieDateAndTickets = (props) => {
 
 const MovieDatesAndTickets = (props) => {
 
-    return <Grid container>
+    return <Grid container  alignItems="center">
         {props.movie.movieDates.map((movieDate, i) => <MovieDateAndTickets classes={props.classes} movie={props.movie} movieDate={movieDate} key={i}></MovieDateAndTickets>)}
     </Grid>
 
 }
 
 
-const MovieDateAndTicketsT = (props) => {
+// const MovieDateAndTicketsT = (props) => {
 
-    return <React.Fragment>
-        <Grid item xs={6}><MovieDate date={props.movieDate.date} /></Grid>
-    </React.Fragment>
-}
+//     return <React.Fragment>
+//         <Grid item xs={6}><MovieDate date={props.movieDate.date} /></Grid>
+//     </React.Fragment>
+// }
 
-const MovieDatesAndTicketsT = (props) => {
+// const MovieDatesAndTicketsT = (props) => {
 
-    return <Grid container className={props.classes.movieDates}>
-        {props.movie.movieDates.map((movieDate, i) => <MovieDateAndTicketsT classes={props.classes} movie={props.movie} movieDate={movieDate} key={i} />)}
-    </Grid>
+//     return <Grid container className={props.classes.movieDates}>
+//         {props.movie.movieDates.map((movieDate, i) => <MovieDateAndTicketsT classes={props.classes} movie={props.movie} movieDate={movieDate} key={i} />)}
+//     </Grid>
 
-}
+// }
 
 
 
