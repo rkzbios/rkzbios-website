@@ -75,7 +75,7 @@ const SiteMenu = (props) => {
                 </Grid>
                 <Grid className={classes.clarification} item md={3} xs={12}>
                     <div>entree €7,- | 10-rittenkaart €50,- | studenten/stadjerspas €5,-</div>
-                    <div>de kassa opent 30 minuten voor aanvang | tickets alleen online</div>
+                    <div>entree 30 minutes voor aanvang | tickets online of aan de kassa</div>
                     <div>email: <a className={classes.link} href="mailto:info@rkzbios.nl">info@rkzbios.nl</a> </div>
                 </Grid>
             </Grid>
