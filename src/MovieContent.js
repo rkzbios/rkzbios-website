@@ -175,13 +175,25 @@ const MovieDateAndTickets = (props) => {
                 <Button
                     variant="contained"
                     color="primary"
+                    size="small"
                     className={props.classes.ticketButton}
                     href={`/tickets?movieId=${props.movie.id}&movieDateId=${props.movieDate.id}&nrOfSeats=1`}
 
                 >
-                    Koop Ticket
+                    One seat ticket
                 </Button>
 
+            </Grid>
+            <Grid item xs={6}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    className={props.classes.ticketButton}
+                    href={`/tickets?movieId=${props.movie.id}&movieDateId=${props.movieDate.id}&nrOfSeats=2`}
+                >
+                    Double seat ticket
+                </Button>
             </Grid>
             
         </Grid>
