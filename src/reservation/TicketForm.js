@@ -149,7 +149,7 @@ const TicketsForm = (props) => {
               fields.map((name, index) => (
                 <Radios
                   key={index}
-                  label={`Strippenkaart/korting seat ${index + 1}`}
+                  label={`Strippenkaart/korting`}
                   name={name}
                   required={true}
                   data={paymentTypeData}

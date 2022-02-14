@@ -167,11 +167,13 @@ const useStyles = makeStyles(theme => ({
 
 const MovieDateAndTickets = (props) => {
 
+    const showTicketButton = !props.movieDate.is_passed;
 
     return <React.Fragment>
         <Grid item xs={6}><MovieDate date={props.movieDate.date} /></Grid>
         <Grid container item xs={6}>
             <Grid item xs={6}>
+                {showTicketButton ? 
                 <Button
                     variant="contained"
                     color="primary"
@@ -180,22 +182,9 @@ const MovieDateAndTickets = (props) => {
                     href={`/tickets?movieId=${props.movie.id}&movieDateId=${props.movieDate.id}&nrOfSeats=1`}
 
                 >
-                    One seat ticket
-                </Button>
-
-            </Grid>
-            <Grid item xs={6}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    className={props.classes.ticketButton}
-                    href={`/tickets?movieId=${props.movie.id}&movieDateId=${props.movieDate.id}&nrOfSeats=2`}
-                >
-                    Double seat ticket
-                </Button>
-            </Grid>
-            
+                    Koop Ticket
+                </Button>: null}
+            </Grid>            
         </Grid>
     </React.Fragment>
 
