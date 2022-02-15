@@ -44,7 +44,7 @@ const createInitialValues = ({ nrOfSeats, movieDateId }) => {
   return {
     nrOfSeats,
     movieDateId,
-    terms: false,
+    terms: true,
     email: '',
     emailVerification: '',
     paymentTypes
