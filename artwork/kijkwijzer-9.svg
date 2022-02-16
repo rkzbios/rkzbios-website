@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="183"
+   height="183"
+   id="svg3178"
+   sodipodi:docname="kijkwijzer-9.svg"
+   inkscape:version="0.92.5 (0.92.5+68)"
+   inkscape:export-filename="/home/roho/projects/rkzbios/rkzbios-website/artwork/kijkwijzer-9.png"
+   inkscape:export-xdpi="62.950821"
+   inkscape:export-ydpi="62.950821">
+  <metadata
+     id="metadata867">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1103"
+     id="namedview865"
+     showgrid="false"
+     inkscape:pagecheckerboard="true"
+     inkscape:zoom="2.4836066"
+     inkscape:cx="-39.884597"
+     inkscape:cy="87.398748"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3178" />
+  <defs
+     id="defs3180" />
+  <path
+     style="fill:#00ff99;fill-opacity:1;fill-rule:nonzero;stroke:none"
+     d="M 91.404297 0 C 40.965507 0 0 41.01053 0 91.5 C -1.8947806e-14 142.18389 40.965507 183 91.404297 183 C 142.0396 183 183 142.18389 183 91.5 C 183 41.01053 142.0396 0 91.404297 0 z M 72.820312 35.199219 L 110.17773 35.199219 L 121.93555 46.970703 L 121.93555 136.38086 L 110.36719 148.35156 L 72.820312 148.35156 L 61.064453 136.38086 L 61.064453 114.74609 L 83.251953 114.74609 L 83.251953 129.16602 L 99.556641 129.16602 L 99.556641 96.515625 L 92.728516 102.97266 L 73.005859 102.97266 L 61.064453 91.390625 L 61.064453 46.779297 L 72.820312 35.199219 z M 83.058594 54.185547 L 83.058594 83.984375 L 99.556641 83.984375 L 99.556641 54.185547 L 83.058594 54.185547 z "
+     id="path2852" />
+</svg>
