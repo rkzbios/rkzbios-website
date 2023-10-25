@@ -31,7 +31,7 @@
     "markdown-to-jsx": "^6.10.3",
     "moment": "^2.24.0",
     "mui-rff": "^2.1.15",
-    "next": "8.1.1-canary.24",
+    "next": "13.5.0",
     "polyline-encoded": "0.0.8",
     "prop-types": "latest",
     "qrcode.react": "^1.0.0",
